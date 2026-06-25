@@ -1,90 +1,162 @@
 # appi — Module Development Guide
 
-This guide explains how to create, build, and register new API-first modules within the **appi** architecture.
+This guide explains how to create, build, and register new API-first modules within the **appi** architecture. Modules are **fully self-contained** — adding a module directory is all that's needed. The main app never hardcodes module names.
 
 ---
 
 ## 1. Module Structure
-All modules reside in the `app/Modules/` directory. Because the application is split into a CI4 API and a React SPA, modules contain only backend API logic and optional React frontend component files to be registered with Vite.
+All modules reside in `app/Modules/<Name>/` (PascalCase directory). Each module is a self-contained unit: API routes, models, services, language files, React UI, and the `module.json` manifest.
 
-A standard module (e.g., `deals`) follows this structure:
+A standard module (e.g., `Deals`) follows this structure:
 
 ```text
 app/Modules/Deals/
 ├── Config/
-│   └── Routes.php          # Module-specific API routes
+│   └── Routes.php          # Module-specific API routes (auto-discovered by CI4)
 ├── Controllers/
-│   └── DealController.php  # API Controller (extends ApiController)
+│   └── DealController.php  # Extends App\Controllers\Api\ApiController
 ├── Database/
-│   ├── Migrations/         # Database migrations (SQLite)
+│   ├── Migrations/         # Database migrations
 │   └── Seeds/              # Seed data
-├── Entities/               # Entity classes (JSON serializable)
+├── Entities/
 │   └── DealEntity.php
-├── Events/                 # Module event listeners (e.g. Activity logging)
-│   └── DealsEvents.php     # PascalCase slug events
-├── Filters/                # Module authorization filters (optional)
+├── Events/
+│   └── DealsEvents.php     # Static event listener methods
+├── Filters/                # Module-specific authorization filters (optional)
 │   └── DealsFilter.php
-├── Language/               # Translation files (en/es/pt)
+├── Language/               # Translation files per locale
 │   ├── en/
 │   │   └── Deals.php
 │   └── es/
 │       └── Deals.php
 ├── Models/
 │   └── DealModel.php
-├── Services/               # Thin business logic services
+├── Services/
 │   └── DealService.php
-├── ui/                     # React UI files (scanned by Vite)
-│   ├── components/         # Module-specific React components
-│   │   └── DealPipeline.jsx
-│   └── index.js            # Entry point exposing routes/components
-├── api_dev.md              # Module API Documentation
-└── module.json             # Manifest file (Required)
+├── ui/                     # React UI files (auto-scanned by Vite)
+│   ├── components/
+│   │   └── DealPipeline.tsx
+│   ├── types/
+│   │   └── index.ts            # Module-specific TypeScript types
+│   └── index.ts            # Entry point: exports routes + components
+├── api_dev.md              # Module API documentation
+└── module.json             # Manifest (Required)
 ```
 
 > [!WARNING]
-> Modules **MUST NOT** contain MVC Web Controllers (e.g., `Controllers/Deals.php`) or PHP HTML Views (`Views/` directory). All UI rendering belongs to the React codebase.
+> Modules **MUST NOT** contain:
+> - A `Views/` directory
+> - Any `view()` calls
+> - Any `redirect()` calls
+> - MVC-style web controllers
+>
+> All UI rendering belongs to the React SPA under `ui/`.
 
 ---
 
 ## 2. The `module.json` Manifest
-Every module must declare its configurations, metadata, permissions, and API schemas in a `module.json` file.
+Every module must declare its metadata, permissions, API schema, and React routes in a `module.json` file. The main app discovers and serves this file dynamically — **never reference module names in core app code**.
+
+The canonical reference is `app/Modules/Contacts/module.json`. The full schema is in `codeigniter-knowledge/references/module-schema.md`.
 
 ```json
 {
-    "name": "Deals",
-    "slug": "deals",
-    "version": "1.0.0",
+    "slug":        "deals",
+    "name":        "Deals",
     "description": "Manage sales opportunities and pipelines.",
-    "dependencies": [],
-    "icon": "briefcase",
-    "order": 10,
-    "db_tables": ["deals_deals", "deals_history"],
-    "permissions": {
-        "deals.view": {
-            "name": "View Deals",
-            "description": "Can view deals list"
+    "icon":        "briefcase",
+    "route":       "deals",
+    "api_prefix":  "api/deals",
+    "nav_group":   "sales",
+    "order":       10,
+    "version":     "1.0.0",
+    "status":      "active",
+    "db_tables":   ["deals_deals", "deals_history"],
+
+    "client_routes": [
+        {
+            "path":      "/deals",
+            "component": "DealsList",
+            "layout":    "admin",
+            "roles":     ["deals.view"]
         },
-        "deals.create": {
-            "name": "Create Deals", 
-            "description": "Can create new deals"
+        {
+            "path":      "/deals/new",
+            "component": "DealForm",
+            "layout":    "admin",
+            "roles":     ["deals.create"]
         },
-        "deals.edit": {
-            "name": "Edit Deals",
-            "description": "Can edit existing deals"
+        {
+            "path":      "/deals/edit/:id",
+            "component": "DealForm",
+            "layout":    "admin",
+            "roles":     ["deals.edit"]
+        }
+    ],
+
+    "api_schema": {
+        "filters": {
+            "search":   { "type": "string",  "description": "Search by title or notes" },
+            "stage":    { "type": "select",  "description": "Filter by stage", "options": ["prospecting", "proposal", "won", "lost"] },
+            "date_from": { "type": "date",  "description": "Created after date" },
+            "date_to":   { "type": "date",  "description": "Created before date" }
         },
-        "deals.delete": {
-            "name": "Delete Deals",
-            "description": "Can delete deals"
+        "returned_fields": {
+            "id":         { "type": "integer" },
+            "title":      { "type": "string" },
+            "stage":      { "type": "string" },
+            "value":      { "type": "number" },
+            "created_at": { "type": "string", "format": "date-time" }
         }
     },
-    "status": "active"
+
+    "form_schema": {
+        "fields": [
+            { "key": "title", "label": "Title",  "type": "text",     "required": true, "placeholder": "Deal title..." },
+            { "key": "stage", "label": "Stage",  "type": "select",   "required": true, "options": [
+                { "value": "prospecting", "label": "Prospecting" },
+                { "value": "proposal",    "label": "Proposal" },
+                { "value": "won",         "label": "Won" },
+                { "value": "lost",        "label": "Lost" }
+            ]},
+            { "key": "value", "label": "Value", "type": "number",   "required": false }
+        ]
+    },
+
+    "shareable_fields": {
+        "deals_deals": {
+            "fields": ["title", "stage", "notes"]
+        }
+    },
+
+    "permissions": {
+        "deals.view":   { "name": "View Deals",   "description": "Can view deals list" },
+        "deals.create": { "name": "Create Deals", "description": "Can create new deals" },
+        "deals.edit":   { "name": "Edit Deals",   "description": "Can edit existing deals" },
+        "deals.delete": { "name": "Delete Deals", "description": "Can delete deals" }
+    }
 }
 ```
 
+> **Sync rule**: Every permission key in `module.json` must also be added to `app/Config/AuthGroups.php` under `$permissions` and `$matrix`. `AuthGroups.php` is the **runtime enforcement source**; `module.json` drives the React UI.
+
 ---
 
-## 3. API Routing
-Module routes must be registered strictly within the CodeIgniter `api` group, delegating authentication to Shield's filters:
+## 3. API Routing (Auto-Discovered)
+Module routes are **auto-discovered** by CI4's namespace discovery — no manual registration needed in the main `Routes.php`.
+
+CI4 discovers `Config/Routes.php` within any PSR-4 namespace registered in `Config/Autoload.php`:
+
+```php
+// app/Config/Autoload.php — ensures Modules namespace is registered
+public $psr4 = [
+    APP_NAMESPACE => APPPATH,
+    'App\\Modules\\Deals' => APPPATH . 'Modules/Deals',
+    // OR: use Config/Modules.php with $shouldDiscover = true
+];
+```
+
+Then the module's own `Config/Routes.php` self-registers:
 
 ```php
 // app/Modules/Deals/Config/Routes.php
@@ -97,42 +169,69 @@ $routes->group('api/deals', [
     'namespace' => 'App\Modules\Deals\Controllers',
     'filter'    => 'jwtAuth',
 ], static function ($routes): void {
-    $routes->get('/',          'DealController::index');
-    $routes->get('(:num)',     'DealController::show/$1');
-    $routes->post('/',         'DealController::create');
-    $routes->put('(:num)',     'DealController::update/$1');
-    $routes->delete('(:num)',  'DealController::delete/$1');
+    $routes->get('/',         'DealController::index');
+    $routes->get('(:num)',    'DealController::show/$1');
+    $routes->post('/',        'DealController::create');
+    $routes->put('(:num)',    'DealController::update/$1');
+    $routes->delete('(:num)', 'DealController::delete/$1');
 });
 ```
 
+> **No entry in `app/Config/Routes.php`** — the module manages its own routes.
+
 ---
 
-## 4. UI Integration & Components
+## 4. UI Integration — TypeScript + Tailwind
 
-When building the module's React frontend under the `ui/` directory:
-- Use standardized API calls to backend endpoints.
-- Manage state and render the module's views seamlessly within the SPA.
+Module React UI lives in the module's `ui/` directory. All UI code follows the same conventions as the main React SPA (see `frontend-react` skill): TypeScript strict mode, Tailwind CSS utilities, typed service calls.
 
-```jsx
+Module-specific TypeScript types live in `app/Modules/<Name>/ui/types/index.ts`.
+
+```tsx
+// app/Modules/Deals/ui/types/index.ts
+export interface Deal {
+    id: number;
+    title: string;
+    stage: 'prospecting' | 'proposal' | 'won' | 'lost';
+    value: number;
+    created_at: string;
+}
+```
+
+```tsx
+// app/Modules/Deals/ui/components/DealDetails.tsx
 import React, { useEffect, useState } from 'react';
-import api from '@/utils/api';
+import api from '@/services/api';
+import type { Deal } from '../types';
 
-export default function DealDetails({ dealId }) {
-    const [deal, setDeal] = useState(null);
+interface DealDetailsProps {
+    dealId: number;
+}
+
+export default function DealDetails({ dealId }: DealDetailsProps) {
+    const [deal, setDeal] = useState<Deal | null>(null);
 
     useEffect(() => {
-        api.get(`/api/deals/${dealId}`).then(res => setDeal(res.data.data));
+        api.get<{ status: string; data: Deal }>(`/api/deals/${dealId}`)
+            .then(res => setDeal(res.data.data));
     }, [dealId]);
 
-    if (!deal) return <p>Loading...</p>;
+    if (!deal) return <p className="text-gray-400 text-sm">Loading...</p>;
 
     return (
-        <div className="deal-details-panel">
-            <h2>{deal.title}</h2>
-            <p>Stage: {deal.stage}</p>
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{deal.title}</h2>
+            <p className="text-sm text-gray-500">Stage: {deal.stage}</p>
         </div>
     );
 }
+```
+
+```ts
+// app/Modules/Deals/ui/index.ts — Entry point consumed by Vite
+export { default as DealsList } from './components/DealsList';
+export { default as DealForm }  from './components/DealForm';
+// component names must match client_routes[].component in module.json
 ```
 
 ---
@@ -160,16 +259,16 @@ Modules support full plug-and-play event triggers. Ensure events use the `{slug}
 - **`deals.save`**: Fired on creation/update.
 - **`deals.delete`**: Fired on deletion.
 
-Ensure you pass `_action => 'create'` inside the event payload when creating a record so the global `ActivityService` correctly logs the change as "created" (instead of "updated"):
+Pass `_action => 'create'` inside the event payload when creating so the global `ActivityService` correctly logs the change:
 
 ```php
-// In Deals API Controller create method:
+// In DealController::create()
 Events::trigger('deals.save', array_merge(['id' => $id, '_action' => 'create'], $data));
 ```
 
 ### Registering Module Event Listeners
 
-Module event listeners are **not auto-discovered** — they must be manually registered in `app/Config/Events.php`:
+Module event listeners **must be registered** in `app/Config/Events.php`. CI4 does not auto-discover listeners:
 
 ```php
 <?php
@@ -181,15 +280,15 @@ namespace Config;
 
 use CodeIgniter\Events\Events;
 
-// Register module listeners manually
-Events::on('deals.save', static function (array $data): void {
-    service('logger')->info('Deal saved', ['id' => $data['id']]);
-});
-
+// Register module listeners
+Events::on('deals.save', ['App\Modules\Deals\Events\DealsEvents', 'onSave']);
 Events::on('contacts.save', ['App\Modules\Contacts\Events\ContactsEvents', 'onSave']);
 ```
 
+> [!WARNING]
+> Event listeners are the **one exception** to zero-registration. CI4 has no auto-discovery for event listeners, so they must be explicitly registered in `app/Config/Events.php`. This is the standard CI4 pattern.
+
 **Convention:**
-- Module listener classes live in `app/Modules/<Name>/Events/<Name>Events.php` as static methods.
-- Registration happens in `app/Config/Events.php` — there is no auto-discovery.
+- Listener classes live in `app/Modules/<Name>/Events/<Name>Events.php` as static methods.
 - Event names follow the `{slug}.{action}` pattern.
+- Keep `app/Config/Events.php` as the single place for all listener registrations.

@@ -1,6 +1,6 @@
 ---
 name: appi-developer
-description: Core architecture, design patterns, and development guidelines for the appi application (CI4 API + React SPA).
+description: Core architecture, design patterns, and development guidelines for the appi application (CI4 API backend + React Admin SPA + separate user-facing React apps).
 ---
 
 # appi Development Guide
@@ -26,50 +26,75 @@ Avoid custom framework-like abstractions: custom DI containers, custom query bui
 
 - **Backend Framework**: CodeIgniter 4 (PHP 8.2+) acting strictly as a RESTful JSON API.
 - **Database**: SQLite 3 (default), configured with WAL journal mode (`PRAGMA journal_mode = WAL`) for concurrent multi-user read/write access.
-- **Authentication**: CodeIgniter Shield configured to use JWT (JSON Web Tokens) or Personal Access Tokens (Bearer Tokens) for stateless, API-first authentication.
-- **Frontend**: React SPA (Single Page Application) built with Vite, React Router, and styled with Vanilla CSS modules or Tailwind CSS.
+- **Authentication**: CodeIgniter Shield with **two layers**:
+  - **JWT** (JSON Web Tokens) — primary auth for React SPA sessions (admin UI and user-facing UIs). Stateless, short-lived.
+  - **Personal Access Tokens (PAT)** — for developers who need direct, long-lived API access (testing, integrations). Shield supports both simultaneously.
+- **Admin SPA**: The React **Admin UI** codebase lives in `/ui` at the project root. It is built with Vite, React Router, and Tailwind CSS.
+- **User-facing UIs**: Separate React applications in separate repositories, connecting to this same API over HTTPS. They authenticate with the same JWT/PAT system.
 - **Hosting & Bundling**:
-  - The React Admin UI codebase resides in the `/ui` directory at the project root.
-  - **Development**: Vite dev server runs on `localhost:5173` with hot module replacement. The CI4 API is on `localhost:8080`. CORS is enabled to allow cross-origin requests between them.
-  - **Production**: Vite compiles the React codebase at build time, outputting the build artifacts (`index.html`, JS, CSS) directly into CI4's `public/` directory. A fallback route in `app/Config/Routes.php` serves the React entrypoint (`public/index.html`) for all non-API admin routes (`/admin/*`). Since both are served from the same origin, CORS is not needed for production.
-  - The React SPA is fully decoupled from the API and can be hosted on a separate server in either mode, communicating solely via `/api` REST endpoints.
+  - **Development**: Vite dev server runs on `localhost:5173` with hot module replacement. The CI4 API is on `localhost:8080`. CORS is enabled.
+  - **Production (simple)**: Vite builds to `public/`. CI4 `Routes.php` has a static file passthrough for `/admin/*` → `public/index.html`. This is a convenience for simple hosting only — not MVC rendering.
+  - **Production (recommended)**: A dedicated web server (nginx/Apache) serves the compiled SPA static files and proxies `/api/*` to CI4. CI4 never serves HTML in this setup.
+  - The admin SPA is fully decoupled and can always be hosted on a separate origin.
 
 ---
 
 ## 🏗️ Architecture & Structure
 
-**appi** uses a decoupled, modular, API-First architecture. All server-side MVC templates, partials, session-based redirects, and PHP-rendered views are deprecated and prohibited.
+**appi** uses a decoupled, modular, API-First architecture. All server-side MVC templates, partials, session-based redirects, and PHP-rendered views are **prohibited**.
 
 ### Decoupling & Modular React UI
-1. **API-First Design**: The backend contains no HTML rendering. All controllers extend `CodeIgniter\RESTful\ResourceController` or return JSON.
-2. **Modular Code Structure**: Backend module logic lives in `app/Modules/<slug>/`.
-3. **Vite Build-Time Scanner**: 
-   - Vite is configured to scan the `app/Modules/*/ui` directories at build time.
-   - It discovers module-specific React entry points, client routes, and navigation items, automatically compiling them into the central SPA bundle.
+1. **API-First Design**: The backend contains no HTML rendering. All controllers extend `ResourceController` (via `ApiController`) and return JSON only.
+2. **Modular Code Structure**: Backend module logic lives in `app/Modules/<Name>/` (PascalCase).
+3. **Zero Manual Module Registration**: Modules are **fully self-contained and auto-discovered**:
+   - **PHP classes/routes**: CI4's `Config/Modules.php` (`$shouldDiscover = true`) auto-discovers module routes and configs via PSR-4 namespaces. No manual registration in core config files.
+   - **API manifests**: `GET /api/modules` dynamically globs `app/Modules/*/module.json` at runtime. No hardcoded module list anywhere in the main app.
+   - **React UI**: Vite is configured to glob `app/Modules/*/ui/index.{ts,tsx}` at build time, auto-bundling module UI into the SPA.
 4. **Inter-Module Communication**:
-   - **Frontend (React)**: React components communicate with module API endpoints (`/api/<module>`) using standard Bearer authorization headers.
-   - **Backend (PHP)**: Internal module dependencies are decoupled. Do not call controllers directly. Use the **CI4 Event system** (`Events::trigger()`) for side-effects and cross-module notifications.
+   - **Frontend**: React SPA calls module API endpoints (`/api/<slug>`) with a JWT Bearer token.
+   - **Backend**: Use the CI4 Event system (`Events::trigger()`) for cross-module side-effects. Never call another module's controller directly.
 
 ### Directory Structure
-- **`app/Modules/`**: Business features.
-  - Contains `Controllers/`, `Models/`, `Entities/`, `Events/`, `Filters/`, `Services/`, `Config/Routes.php`, and `Database/Migrations/`.
-  - Modules **MUST NOT** contain a `Views/` directory or server-side Web controllers.
-  - May contain a `ui/` directory with React routes and components scanned by Vite.
-- **`ui/`**: React Admin SPA codebase (Vite, React, Tailwind/CSS modules).
-- **`app/Services/`**: Core system services registered in `Config/Services.php` (e.g. `SearchService`, `ConfigService`).
-- **`app/Controllers/Api/`**: Core system API controllers (Users, Settings, Config, Auth) extending `ApiController`.
-- **`public/`**: Web root. Hosts Vite-compiled React bundles (index.html, assets/).
+- **`app/Modules/<Name>/`**: Self-contained business features (PascalCase directory name).
+  - Contains `Controllers/`, `Models/`, `Entities/`, `Events/`, `Filters/`, `Services/`, `Config/Routes.php`, `Database/Migrations/`, `Language/`.
+  - Modules **MUST NOT** contain a `Views/` directory, `redirect()` calls, or any `view()` calls.
+  - **MUST** contain a `ui/` directory if the module exposes a React frontend, and a `module.json` manifest.
+- **`ui/`**: React Admin SPA (Vite, React, Tailwind CSS).
+- **`app/Controllers/Api/`**: Core system API controllers (Auth, Users, Modules, Settings, Lang) extending `ApiController`.
+- **`app/Services/`**: Core services registered in `Config/Services.php`.
+- **`public/`**: Web root. Hosts Vite-compiled React bundles (`index.html`, `assets/`).
+
+### ApiController — Base for All API Controllers
+
+All application controllers (core and module) extend the shared `ApiController` base class:
+
+```php
+<?php
+declare(strict_types=1);
+namespace App\Controllers\Api;
+
+use CodeIgniter\RESTful\ResourceController;
+
+abstract class ApiController extends ResourceController
+{
+    protected $format = 'json'; // Always JSON — no view() calls ever
+}
+```
+
+- Lives at `app/Controllers/Api/ApiController.php`
+- Module controllers: `namespace App\Modules\<Name>\Controllers;` extending `App\Controllers\Api\ApiController`
+- Core controllers: `namespace App\Controllers\Api;` extending `ApiController`
 
 ### Standard CI4 Service Layer Pattern
 
 appi uses the **Controller → Service → Model → Entity** pattern — standard CI4 with a thin service layer:
 
-- **Controller**: Validates input, delegates to Service, returns JSON response
+- **Controller** (thin): Validates input, delegates to Service, returns JSON response
 - **Service**: Business logic, coordinates Model calls
 - **Model**: CI4 `Model` for data access (`find`, `insert`, `update`, `delete`, query builder)
 - **Entity**: CI4 `Entity` with `$casts` for JSON serialization
 
-This is the default and only architecture. No Domain/Application/Infrastructure layers, repository interfaces, or port/adapter patterns.
+This is the default and only architecture. No Domain/Application/Infrastructure layers, no repository interfaces.
 
 > See [database_conventions.md](./database_conventions.md) for all database naming, migration, and model conventions.
 
@@ -77,27 +102,55 @@ This is the default and only architecture. No Domain/Application/Infrastructure 
 
 ## 🧩 Key Systems & Patterns
 
-### 1. Authentication & CORS
-- The API is protected by CodeIgniter Shield's JWT/Token authenticator. Every API call must include:
-  `Authorization: Bearer <YOUR_TOKEN>`
-- The backend configuration includes a `Cors` filter registered globally in `app/Config/Filters.php`. Allowed origins are loaded dynamically from the `.env` file to support the decoupled Users UI.
+### 1. Authentication — JWT + PAT (Dual Strategy)
 
-### 2. Settings & Global Configuration (`/api/settings`)
-- System configurations (branding, timezone, formatting settings) are loaded from the `app_config` database table.
-- A public API endpoint `GET /api/settings` exposes the active configuration to the React frontend.
-- React uses this settings payload to dynamically configure local formatting and styling rules.
+Shield is configured to support both authenticators simultaneously:
 
-### 3. Date & Currency Formatting
-- The backend API always transmits raw, standardized values:
-  - **Dates/Times**: ISO-8601 strings (e.g., `2026-06-23T18:35:39Z`).
-  - **Currencies/Numbers**: Plain floating-point numbers (e.g., `1234.56`).
-- Formatting is done **entirely on the client side** by React components using parameters provided by `/api/settings`.
+| Strategy | Use Case | Lifetime |
+|---|---|---|
+| **JWT** | React SPA sessions (admin UI + user-facing UIs) | Short-lived (1h), refreshable |
+| **PAT** | Developers needing direct API access (testing, scripts) | Long-lived, revocable |
 
-### 4. Client-Side i18n
-- Language files live in `app/Language/{locale}/` on the server.
-- The API exposes `GET /api/lang?locale={locale}` which merges system and active module translations into a nested JSON structure.
-- React UI fetches this structure on load and initializes its internationalization engine (e.g., `i18next`).
-- The frontend sends the user's preferred language using the standard HTTP `Accept-Language` header on all API calls.
+Every API request must include: `Authorization: Bearer <token>`
+
+The `jwtAuth` filter is applied to all protected API routes (see `app/Config/Routes.php`). CORS is enabled globally for cross-origin SPA requests.
+
+### 2. Module Auto-Discovery (Zero Registration)
+
+Modules are fully plug-and-play. When a new module is placed in `app/Modules/<Name>/`:
+- **PHP routes/configs**: Auto-discovered by CI4's namespace discovery (`Config/Modules.php` → `$shouldDiscover = true`)
+- **API manifest**: Dynamically included in `GET /api/modules` response (runtime glob of `module.json` files)
+- **React UI**: Vite glob picks up `app/Modules/*/ui/index.{ts,tsx}` at build time
+
+**The main app never hardcodes module names anywhere.**
+
+### 3. Users Management (`/api/users`)
+
+Built on Shield's `UserModel` — no custom user system. Expose it through a standard `ResourceController`:
+- `GET /api/users` — list users (admin/superadmin only)
+- `POST /api/users` — create user
+- `PUT /api/users/{id}` — update user
+- `DELETE /api/users/{id}` — delete user
+- Shield's `UserModel` handles password hashing, group assignment, identity management.
+- Protected by `group:admin,superadmin` filter.
+
+### 4. Settings & Global Configuration (`/api/settings`)
+- System configurations (branding, timezone, formatting settings) are loaded from the `appi_config` database table.
+- `GET /api/settings` — public endpoint, exposes config to any React frontend.
+- `PUT /api/settings` — admin-only, updates config.
+- React uses this payload to configure local formatting and styling rules.
+
+### 5. Date & Currency Formatting
+- The backend always transmits raw, standardized values:
+  - **Dates/Times**: ISO-8601 strings (`2026-06-23T18:35:39Z`)
+  - **Numbers/Currencies**: Plain floats (`1234.56`)
+- All formatting is done **client-side** using parameters from `/api/settings`.
+
+### 6. Client-Side i18n
+- Language files live in `app/Language/{locale}/` (core) and `app/Modules/<Name>/Language/{locale}/` (modules).
+- `GET /api/lang?locale={locale}` merges system + all active module translations into a flat JSON object.
+- React initializes `i18next` (or equivalent) with this payload on boot.
+- The SPA sends `Accept-Language: <locale>` on all requests.
 
 ---
 

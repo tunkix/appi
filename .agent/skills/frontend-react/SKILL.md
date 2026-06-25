@@ -18,7 +18,7 @@ metadata:
 - **HTTP Client**: Axios (instance-based with JWT interceptor)
 - **State Management**: React Context + `useReducer` for global state; `useState` for local
 
-The React SPA lives in `/ui` at the project root. It communicates with the CI4 API backend exclusively via JSON over HTTP.
+The React **Admin** SPA lives in `/ui` at the project root. It communicates with the CI4 API backend exclusively via JSON over HTTP. User-facing apps are **separate React apps in separate repositories** — they connect to the same appi API but are not hosted here.
 
 ## Project Structure
 
@@ -62,12 +62,8 @@ ui/
 │   │   ├── LoginPage.tsx
 │   │   ├── DashboardPage.tsx
 │   │   └── NotFoundPage.tsx
-│   ├── modules/                    # Feature modules (auto-scanned by Vite)
-│   │   └── contacts/
-│   │       ├── pages/
-│   │       ├── components/
-│   │       ├── hooks/
-│   │       └── index.ts
+│   ├── modules/                    # Auto-scanned module UI (loaded from app/Modules/*/ui)
+│   │   └── (generated at build time by Vite glob)
 │   ├── utils/                      # Pure utility functions
 │   │   ├── formatters.ts
 │   │   ├── validators.ts
@@ -269,7 +265,45 @@ interface ImportMeta {
 
 ### Module UI Scanning
 
-Vite discovers module UI entry points from `app/Modules/*/ui/` directories and bundles them into the SPA at build time (configured in `vite.config.ts`).
+Vite discovers module UI entry points from `app/Modules/*/ui/` directories using a glob import and bundles them into the SPA at build time. Configure in `vite.config.ts`:
+
+```ts
+// vite.config.ts
+import { defineConfig, globSync } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
+
+// Discover all module UI entry points at build time
+const moduleEntries = Object.fromEntries(
+  globSync('../app/Modules/*/ui/index.{ts,tsx}').map((file) => [
+    file.replace('../app/Modules/', '').replace('/ui/index.ts', '').replace('/ui/index.tsx', '').toLowerCase(),
+    path.resolve(__dirname, file),
+  ])
+);
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: { '@': path.resolve(__dirname, './src') },
+  },
+  build: {
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'index.html'),
+        ...moduleEntries,  // One chunk per module
+      },
+    },
+  },
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': { target: 'http://localhost:8080', changeOrigin: true },
+    },
+  },
+});
+```
+
+At runtime, the SPA imports module components dynamically using `React.lazy` keyed to the `component` name from `client_routes` in `module.json`.
 
 ## Tailwind CSS Conventions
 
@@ -438,13 +472,14 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
-// Handle 401 globally
+// Handle 401 globally — redirect to admin login
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('appi_token');
-      window.location.href = '/login';
+      // The admin SPA is served under /admin/* — login is at /admin/login
+      window.location.href = '/admin/login';
     }
     return Promise.reject(error);
   }

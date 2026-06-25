@@ -148,12 +148,16 @@ $routes->get('/', 'Home::index');
 // API v1 — all routes require JWT auth
 $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
 
-    // Auth routes (no JWT required — these issue tokens)
+    // Auth routes (no JWT required — these issue/refresh tokens)
     $routes->post('auth/login',   'Api\AuthController::login');
     $routes->post('auth/refresh', 'Api\AuthController::refresh');
 
     // Protected API routes
     $routes->group('', ['filter' => 'jwtAuth'], static function ($routes): void {
+
+        // Session-related auth routes
+        $routes->post('auth/logout', 'Api\AuthController::logout');
+        $routes->get('auth/me',      'Api\AuthController::me');
 
         // Core resources
         $routes->resource('contacts', ['controller' => 'Api\ContactController']);
@@ -165,8 +169,12 @@ $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
         // Settings
         $routes->get('settings',  'Api\SettingsController::index');
         $routes->put('settings',  'Api\SettingsController::update');
+
+        // Localization
+        $routes->get('lang', 'Api\LangController::index');
     });
 });
+
 ```
 
 ### Route Placeholders

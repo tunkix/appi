@@ -5,7 +5,7 @@ description: CodeIgniter 4 framework knowledge base for API-first applications. 
 
 # CodeIgniter Knowledge Base
 
-Quick reference for CodeIgniter 4 framework patterns and PHP API implementation guidelines. CodeIgniter 4 is built for PHP 8.1+ with namespaces, autoloading, and a lightweight, high-performance architecture. **appi is a pure API backend** — it never renders HTML views. All UI is served by a React SPA (admin UI) hosted separately. The CI4 app exposes only JSON over HTTP.
+Quick reference for CodeIgniter 4 framework patterns and PHP API implementation guidelines. CodeIgniter 4 is built for PHP 8.1+ with namespaces, autoloading, and a lightweight, high-performance architecture. **appi is a pure API backend** — it never renders HTML views. All UI is served by React SPAs (admin UI in `/ui`, user-facing UIs in separate repos). The CI4 app exposes only JSON over HTTP.
 
 ## Core Principles
 
@@ -13,7 +13,7 @@ Quick reference for CodeIgniter 4 framework patterns and PHP API implementation 
 
 ```
 Request → index.php → Bootstrap → Routing
-  → Filters (before: CORS, JWT auth, rate limit) → Controller (ResourceController)
+  → Filters (before: CORS, JWT/PAT auth, rate limit) → ApiController
   → Service → Model → JSON Response
   → Filters (after) → React SPA Client
 ```
@@ -21,9 +21,10 @@ Request → index.php → Bootstrap → Routing
 **Key principles:**
 - **No views, ever.** CI4 `view()` helper is never called. All responses are JSON.
 - Lightweight core with minimal overhead — no template engine, no server-side sessions for API routes.
-- Modular architecture via namespaces (`app/Modules/`). Each module owns its API routes + `module.json` manifest.
+- Modular architecture via namespaces (`app/Modules/<Name>/` — **PascalCase**). Each module is fully self-contained with its own API routes + `module.json` manifest.
+- **Zero manual module registration** — CI4 auto-discovers module routes via PSR-4; `GET /api/modules` dynamically globs `module.json` files at runtime.
 - Services container for dependency injection and lookup.
-- Filters acting as middleware for CORS, Shield JWT authentication, and authorization.
+- Filters acting as middleware for CORS, Shield JWT/PAT authentication, and authorization.
 - Entities implementing CI4 Entity with `$casts` for seamless JSON serialization.
 - React SPA consumes `module.json` manifests to drive routing, forms, and permissions.
 
@@ -31,11 +32,13 @@ Request → index.php → Bootstrap → Routing
 
 ### Standard CI4 API Project (appi style)
 
-- [ ] All controllers extend `ResourceController` with `protected $format = 'json'`
+- [ ] All controllers extend `ApiController` (which extends `ResourceController`) with `protected $format = 'json'`
+- [ ] `ApiController` base class lives at `app/Controllers/Api/ApiController.php`
 - [ ] No `view()` calls anywhere in the codebase
-- [ ] All routes under `api/` prefix
-- [ ] Shield JWT filter applied to all protected API routes
-- [ ] CORS filter applied globally (React SPA is on a different origin)
+- [ ] All API routes under `api/` prefix
+- [ ] Shield JWT filter (`jwtAuth`) applied to all protected API routes
+- [ ] Shield PAT also supported simultaneously for developer API access
+- [ ] CORS filter applied globally (React SPA may be on a different origin)
 - [ ] CSRF disabled for all routes (stateless API — not needed)
 - [ ] Input validated at Controller level (returning structured 422 JSON on failure)
 - [ ] Services registered in `Config\Services` for dependency management
@@ -43,6 +46,8 @@ Request → index.php → Bootstrap → Routing
 - [ ] Each module has a `module.json` manifest consumed by the React SPA
 - [ ] Module permissions registered in `Config\AuthGroups` via Shield
 - [ ] Migrations namespaced under each module
+- [ ] `Config/Modules.php` has `$enabled = true` for auto-discovery
+- [ ] `/admin/*` routes serve `public/index.html` (SPA static file passthrough — not MVC)
 
 **Spark CLI commands for common tasks:**
 ```bash
@@ -58,7 +63,7 @@ php spark migrate --all                                    # Run all migrations
 
 ### Module Checklist
 
-- [ ] Module directory under `app/Modules/<Name>/` with standard structure:
+- [ ] Module directory under `app/Modules/<Name>/` **PascalCase**:
   ```
   app/Modules/<Name>/
   ├── Config/Routes.php
@@ -68,18 +73,21 @@ php spark migrate --all                                    # Run all migrations
   ├── Services/<Name>Service.php
   ├── Database/Migrations/
   ├── Language/
-  └── module.json
+  ├── ui/                    ← Required if module has React UI
+  └── module.json            ← Always required
   ```
-- [ ] `module.json` with: `slug`, `name`, `icon`, `route`, `version`, `api_prefix`, `client_routes`, `form_schema`, `permissions`, `status`
-- [ ] `Config/Routes.php` registering routes under `api/<slug>/` (using JWT auth filter)
-- [ ] Controllers extend `ApiController` (extends `ResourceController`) and return JSON only
-- [ ] Permissions defined in `module.json` match Shield `AuthGroups` matrix — **both must be kept in sync** (`AuthGroups.php` is the runtime source of truth; `module.json` drives SPA UI gating)
+- [ ] `module.json` with: `slug`, `name`, `icon`, `route`, `api_prefix`, `nav_group`, `version`, `status`, `client_routes`, `api_schema`, `form_schema`, `permissions`, `shareable_fields`, `db_tables`
+- [ ] `Config/Routes.php` registering routes under `api/<slug>/` (using `jwtAuth` filter)
+- [ ] Module `Config/Routes.php` is **auto-discovered** — no entry in main `app/Config/Routes.php`
+- [ ] Controllers extend `ApiController` (`App\Controllers\Api\ApiController`) and return JSON only
+- [ ] Permissions in `module.json` match `AuthGroups.php` matrix exactly — **both must be in sync**
+- [ ] Database tables named `<slug>_<table>` (snake_case prefix, never PascalCase)
 
 **Spark CLI for module scaffolding:**
 ```bash
 php spark make:model <Name>Model --namespace App\\Modules\\<Name>
 php spark make:entity <Name>Entity --namespace App\\Modules\\<Name>
-php spark make:migration <CreateNameTable> --namespace App\\Modules\\<Name>
+php spark make:migration Create<Name>Table --namespace App\\Modules\\<Name>
 ```
 
 ## Core API Endpoints

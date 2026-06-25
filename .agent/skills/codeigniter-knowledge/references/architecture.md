@@ -74,25 +74,38 @@ app/Modules/Contacts/
 └── module.json             # React SPA manifest
 ```
 
-### Module Registration
+### Module Registration (Runtime Autoloading & Discovery)
+
+Modules are registered dynamically at boot time. Rather than manually appending every new module to the `$psr4` array in `app/Config/Autoload.php`, the autoloader constructor is configured to dynamically scan the `app/Modules/` directory and register namespaces automatically:
 
 ```php
 <?php
 
 declare(strict_types=1);
 
-// app/Config/Autoload.php
 namespace Config;
 
 use CodeIgniter\Config\AutoloadConfig;
 
-final class Autoload extends AutoloadConfig
+class Autoload extends AutoloadConfig
 {
     public array $psr4 = [
-        APP_NAMESPACE             => APPPATH,
-        'App\Modules\Contacts'    => APPPATH . 'Modules/Contacts',
-        'App\Modules\OtherModule' => APPPATH . 'Modules/OtherModule',
+        APP_NAMESPACE => APPPATH, // Maps 'App' -> 'app/'
     ];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $modulesPath = APPPATH . 'Modules/';
+        if (is_dir($modulesPath)) {
+            $dirs = array_filter(glob($modulesPath . '*'), 'is_dir');
+            foreach ($dirs as $dir) {
+                $moduleName = basename($dir);
+                $this->psr4['App\Modules\\' . $moduleName] = $dir;
+            }
+        }
+    }
 }
 ```
 

@@ -155,9 +155,15 @@ declare(strict_types=1);
 // Instead, register only the API auth routes manually:
 
 $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
-    $routes->post('auth/login',  'Api\AuthController::login');
-    $routes->post('auth/logout', 'Api\AuthController::logout');
-    $routes->get('auth/me',      'Api\AuthController::me');
+    // Public auth routes
+    $routes->post('auth/login',   'Api\AuthController::login');
+    $routes->post('auth/refresh', 'Api\AuthController::refresh');
+
+    // Protected routes
+    $routes->group('', ['filter' => 'jwtAuth'], static function ($routes): void {
+        $routes->post('auth/logout', 'Api\AuthController::logout');
+        $routes->get('auth/me',      'Api\AuthController::me');
+    });
 });
 ```
 

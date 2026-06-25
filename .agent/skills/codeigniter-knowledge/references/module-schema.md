@@ -1,6 +1,6 @@
 # module.json Schema Reference
 
-The `module.json` file is a machine-readable manifest that every appi module ships. It lives at `app/Modules/<Name>/module.json` and is served to the React SPA via `GET /api/modules`. The SPA uses it to drive routing, forms, permissions, and navigation — without hardcoding anything module-specific in the SPA codebase.
+The `module.json` file is a machine-readable manifest that every appi module ships. It lives at `app/Modules/<Name>/module.json` (PascalCase directory) and is served to the React SPA via `GET /api/modules`. The `ModuleController` dynamically globs all `app/Modules/*/module.json` files at runtime — **no module name is ever hardcoded in the main app**. The SPA uses the manifest to drive routing, forms, permissions, and navigation.
 
 ## Required vs Optional Fields Table
 
@@ -212,16 +212,20 @@ Config settings are stored in the app's settings table and editable via `GET/PUT
 
 ## Complete Example
 
-See `app/Modules/contacts/module.json` for the canonical reference implementation.
+See `app/Modules/Contacts/module.json` for the canonical reference implementation.
 
 ## Validation Checklist
 
 When creating a new module's `module.json`:
 
-- [ ] `slug` is URL-safe and unique across all modules
-- [ ] `api_prefix` matches the route group registered in `Config/Routes.php`
+- [ ] `slug` is URL-safe, lowercase, and unique across all modules (e.g. `deals`)
+- [ ] Module **directory name** is PascalCase (e.g. `app/Modules/Deals/`)
+- [ ] Database table prefix matches the slug in snake_case (e.g. `deals_deals`)
+- [ ] `api_prefix` matches the route group registered in the module's own `Config/Routes.php`
 - [ ] All `client_routes[].roles` values exist as keys in `permissions`
-- [ ] All `permissions` keys are **also registered** in `app/Config/AuthGroups.php` — see [security.md](security.md) "Permission Source of Truth"
-- [ ] `db_tables` entries follow the `<slug>_<table>` naming convention
+- [ ] All `permissions` keys are **also registered** in `app/Config/AuthGroups.php` under `$permissions` and `$matrix` — see [security.md](security.md)
+- [ ] `db_tables` entries follow the `<slug>_<table>` naming convention (snake_case)
 - [ ] `form_schema.fields` keys match `$allowedFields` in the module's Model
 - [ ] `status` is set to `"active"` before deploying
+- [ ] `nav_group` is set if the module should appear in a sidebar navigation group
+- [ ] Module **never appears by name** in any core app file (`app/Config/Routes.php`, `app/Config/Events.php`, etc.) except for event listener registration
