@@ -1,0 +1,177 @@
+{
+  "slug":        "contacts",
+  "name":        "Contacts",
+  "description": "Manage people and organizations including contact methods (emails, phones, websites).",
+  "icon":        "users",
+  "route":       "contacts",
+  "api_prefix":  "api/contacts",
+  "nav_group":   "crm",
+  "order":       1,
+  "version":     "1.0.0",
+  "db_tables":   ["contacts_contacts", "contacts_methods"],
+
+  "client_routes": [
+    {
+      "path": "/contacts",
+      "component": "ContactsList",
+      "layout": "admin",
+      "roles": ["contacts.view"]
+    },
+    {
+      "path": "/contacts/new",
+      "component": "ContactForm",
+      "layout": "admin",
+      "roles": ["contacts.create"]
+    },
+    {
+      "path": "/contacts/edit/:id",
+      "component": "ContactForm",
+      "layout": "admin",
+      "roles": ["contacts.edit"]
+    }
+  ],
+
+  "api_schema": {
+    "filters": {
+      "search": {
+        "type": "string",
+        "description": "Search by first name, last name, company, or notes"
+      },
+      "company": {
+        "type": "string",
+        "description": "Filter by company name"
+      },
+      "job_title": {
+        "type": "string",
+        "description": "Filter by job title"
+      }
+    },
+    "returned_fields": {
+      "id": { "type": "integer" },
+      "first_name": { "type": "string" },
+      "last_name": { "type": "string" },
+      "company": { "type": "string" },
+      "job_title": { "type": "string" },
+      "notes": { "type": "string" },
+      "methods": {
+        "type": "array",
+        "properties": {
+          "type": { "type": "string" },
+          "value": { "type": "string" }
+        }
+      },
+      "created_at": { "type": "string", "format": "date-time" }
+    }
+  },
+
+  "form_schema": {
+    "fields": [
+      {
+        "key": "first_name",
+        "label": "First Name",
+        "type": "text",
+        "required": true,
+        "placeholder": "Enter first name..."
+      },
+      {
+        "key": "last_name",
+        "label": "Last Name",
+        "type": "text",
+        "required": true,
+        "placeholder": "Enter last name..."
+      },
+      {
+        "key": "company",
+        "label": "Company",
+        "type": "text",
+        "required": false,
+        "placeholder": "Enter company name..."
+      },
+      {
+        "key": "job_title",
+        "label": "Job Title",
+        "type": "text",
+        "required": false,
+        "placeholder": "Enter job title..."
+      },
+      {
+        "key": "email",
+        "label": "Email",
+        "type": "email",
+        "required": false,
+        "placeholder": "Enter primary email..."
+      },
+      {
+        "key": "notes",
+        "label": "Notes",
+        "type": "textarea",
+        "required": false,
+        "placeholder": "Enter additional notes..."
+      },
+      {
+        "key": "methods",
+        "label": "Contact Methods",
+        "type": "repeater",
+        "required": false,
+        "fields": [
+          {
+            "key": "type",
+            "label": "Type",
+            "type": "select",
+            "options": [
+              { "value": "email", "label": "Email" },
+              { "value": "phone", "label": "Phone" },
+              { "value": "website", "label": "Website" }
+            ],
+            "required": true
+          },
+          {
+            "key": "value",
+            "label": "Value",
+            "type": "text",
+            "required": true,
+            "placeholder": "Enter phone number, email, or URL..."
+          }
+        ]
+      }
+    ]
+  },
+
+  "shareable_fields": {
+    "contacts_contacts": {
+      "fields": ["first_name", "last_name", "company", "job_title", "notes"]
+    },
+    "contacts_methods": {
+      "fields": ["value"]
+    }
+  },
+
+  "permissions": {
+    "contacts.view": {
+      "name": "View Contacts",
+      "description": "Can view contact list and details"
+    },
+    "contacts.create": {
+      "name": "Create Contacts",
+      "description": "Can create new contacts"
+    },
+    "contacts.edit": {
+      "name": "Edit Contacts",
+      "description": "Can edit existing contacts"
+    },
+    "contacts.delete": {
+      "name": "Delete Contacts",
+      "description": "Can delete contacts"
+    },
+    "contacts.export": {
+      "name": "Export Contacts",
+      "description": "Can export contacts data"
+    },
+    "contacts.manage": {
+      "name": "Manage Contacts",
+      "description": "Full access to create, edit, delete and export contacts"
+    }
+  },
+  "status": "active"
+}
+

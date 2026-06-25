@@ -1,0 +1,72 @@
+CRITICAL - 2026-06-24 20:13:17 --> TypeError: CodeIgniter\CLI\InputOutput::input(): Return value must be of type string, false returned
+[Method: CLI, Route: shield:setup]
+in SYSTEMPATH/CLI/InputOutput.php on line 46.
+ 1 SYSTEMPATH/CLI/CLI.php(261): CodeIgniter\CLI\InputOutput->input()
+ 2 VENDORPATH/codeigniter4/shield/src/Commands/Utils/InputOutput.php(31): CodeIgniter\CLI\CLI::prompt()
+ 3 VENDORPATH/codeigniter4/shield/src/Commands/BaseCommand.php(51): CodeIgniter\Shield\Commands\Utils\InputOutput->prompt()
+ 4 VENDORPATH/codeigniter4/shield/src/Commands/Setup.php(383): CodeIgniter\Shield\Commands\BaseCommand->prompt()
+ 5 VENDORPATH/codeigniter4/shield/src/Commands/Setup.php(95): CodeIgniter\Shield\Commands\Setup->setupEmail()
+ 6 VENDORPATH/codeigniter4/shield/src/Commands/Setup.php(82): CodeIgniter\Shield\Commands\Setup->publishConfig()
+ 7 SYSTEMPATH/CLI/Commands.php(72): CodeIgniter\Shield\Commands\Setup->run()
+ 8 SYSTEMPATH/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+ 9 SYSTEMPATH/Boot.php(442): CodeIgniter\CLI\Console->run()
+10 SYSTEMPATH/Boot.php(166): CodeIgniter\Boot::runCommand()
+11 ROOTPATH/spark(87): CodeIgniter\Boot::bootSpark()
+CRITICAL - 2026-06-24 20:13:22 --> Error: Undefined constant "CodeIgniter\Database\MySQLi\MYSQLI_STORE_RESULT"
+[Method: CLI, Route: migrate]
+in SYSTEMPATH/Database/Database.php on line 147.
+ 1 SYSTEMPATH/Database/Database.php(61): CodeIgniter\Database\Database->initDriver()
+ 2 SYSTEMPATH/Database/Config.php(82): CodeIgniter\Database\Database->load()
+ 3 SYSTEMPATH/Common.php(395): CodeIgniter\Database\Config::connect()
+ 4 SYSTEMPATH/Database/MigrationRunner.php(156): db_connect()
+ 5 SYSTEMPATH/Config/Services.php(421): CodeIgniter\Database\MigrationRunner->__construct()
+ 6 SYSTEMPATH/Config/BaseService.php(325): CodeIgniter\Config\Services::migrations()
+ 7 SYSTEMPATH/Config/BaseService.php(264): CodeIgniter\Config\BaseService::__callStatic()
+ 8 SYSTEMPATH/Config/Services.php(416): CodeIgniter\Config\BaseService::getSharedInstance()
+ 9 SYSTEMPATH/Config/BaseService.php(334): CodeIgniter\Config\Services::migrations()
+10 SYSTEMPATH/Config/BaseService.php(203): CodeIgniter\Config\BaseService::__callStatic()
+11 SYSTEMPATH/Common.php(1082): CodeIgniter\Config\BaseService::get()
+12 SYSTEMPATH/Commands/Database/Migrate.php(73): service()
+13 SYSTEMPATH/CLI/Commands.php(72): CodeIgniter\Commands\Database\Migrate->run()
+14 SYSTEMPATH/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+15 SYSTEMPATH/Boot.php(442): CodeIgniter\CLI\Console->run()
+16 SYSTEMPATH/Boot.php(166): CodeIgniter\Boot::runCommand()
+17 ROOTPATH/spark(87): CodeIgniter\Boot::bootSpark()
+ERROR - 2026-06-24 20:31:59 --> Error connecting to the database: Exception: Unable to open database: unable to open database file in /home/daniel/Desktop/antigravity/appi/system/Database/SQLite3/Connection.php:111
+Stack trace:
+#0 /home/daniel/Desktop/antigravity/appi/system/Database/SQLite3/Connection.php(111): SQLite3->__construct()
+#1 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#2 /home/daniel/Desktop/antigravity/appi/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#3 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#4 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#5 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#6 /home/daniel/Desktop/antigravity/appi/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#7 /home/daniel/Desktop/antigravity/appi/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#8 /home/daniel/Desktop/antigravity/appi/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#9 /home/daniel/Desktop/antigravity/appi/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#10 /home/daniel/Desktop/antigravity/appi/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#11 /home/daniel/Desktop/antigravity/appi/system/CLI/Commands.php(72): CodeIgniter\Commands\Database\Migrate->run()
+#12 /home/daniel/Desktop/antigravity/appi/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#13 /home/daniel/Desktop/antigravity/appi/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#14 /home/daniel/Desktop/antigravity/appi/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#15 /home/daniel/Desktop/antigravity/appi/spark(87): CodeIgniter\Boot::bootSpark()
+#16 {main}
+
+Next CodeIgniter\Database\Exceptions\DatabaseException: SQLite3 error: Unable to open database: unable to open database file in /home/daniel/Desktop/antigravity/appi/system/Database/SQLite3/Connection.php:118
+Stack trace:
+#0 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(555): CodeIgniter\Database\SQLite3\Connection->connect()
+#1 /home/daniel/Desktop/antigravity/appi/system/Database/SQLite3/Connection.php(74): CodeIgniter\Database\BaseConnection->initialize()
+#2 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(795): CodeIgniter\Database\SQLite3\Connection->initialize()
+#3 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(1706): CodeIgniter\Database\BaseConnection->query()
+#4 /home/daniel/Desktop/antigravity/appi/system/Database/BaseConnection.php(1726): CodeIgniter\Database\BaseConnection->listTables()
+#5 /home/daniel/Desktop/antigravity/appi/system/Database/MigrationRunner.php(821): CodeIgniter\Database\BaseConnection->tableExists()
+#6 /home/daniel/Desktop/antigravity/appi/system/Database/MigrationRunner.php(173): CodeIgniter\Database\MigrationRunner->ensureTable()
+#7 /home/daniel/Desktop/antigravity/appi/system/Commands/Database/Migrate.php(89): CodeIgniter\Database\MigrationRunner->latest()
+#8 /home/daniel/Desktop/antigravity/appi/system/CLI/SignalTrait.php(245): CodeIgniter\Commands\Database\Migrate::CodeIgniter\Commands\Database\{closure}()
+#9 /home/daniel/Desktop/antigravity/appi/system/Commands/Database/Migrate.php(88): CodeIgniter\Commands\Database\Migrate->withSignalsBlocked()
+#10 /home/daniel/Desktop/antigravity/appi/system/CLI/Commands.php(72): CodeIgniter\Commands\Database\Migrate->run()
+#11 /home/daniel/Desktop/antigravity/appi/system/CLI/Console.php(47): CodeIgniter\CLI\Commands->run()
+#12 /home/daniel/Desktop/antigravity/appi/system/Boot.php(442): CodeIgniter\CLI\Console->run()
+#13 /home/daniel/Desktop/antigravity/appi/system/Boot.php(166): CodeIgniter\Boot::runCommand()
+#14 /home/daniel/Desktop/antigravity/appi/spark(87): CodeIgniter\Boot::bootSpark()
+#15 {main}
