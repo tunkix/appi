@@ -27,11 +27,13 @@ $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
     // Auth routes (no JWT — these issue tokens)
     $routes->post('auth/login',   'Api\AuthController::login');
     $routes->post('auth/refresh', 'Api\AuthController::refresh');
-    $routes->post('auth/logout',  'Api\AuthController::logout');
-    $routes->get('auth/me',       'Api\AuthController::me');
 
     // Protected API routes
     $routes->group('', ['filter' => 'jwtAuth'], static function ($routes): void {
+
+        // Session-related auth routes
+        $routes->post('auth/logout', 'Api\AuthController::logout');
+        $routes->get('auth/me',      'Api\AuthController::me');
 
         // Module manifest discovery
         $routes->get('modules', 'Api\ModuleController::index');

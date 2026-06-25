@@ -21,11 +21,12 @@ final class ProductModel extends Model
     protected $table            = 'products';
     protected $primaryKey       = 'id';
     protected $returnType       = ProductEntity::class;
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
     protected $allowedFields = [
+        'id',
         'name',
         'sku',
         'price',
@@ -47,7 +48,7 @@ final class ProductModel extends Model
     ];
 
     protected $beforeInsert = ['generateUuid'];
-    protected $beforeUpdate = ['updateTimestamp'];
+    // Timestamps handled by $useTimestamps = true — no manual updateTimestamp hook needed
 
     /** @param array<string, mixed> $data */
     protected function generateUuid(array $data): array

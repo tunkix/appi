@@ -83,7 +83,7 @@ axios.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('appi_token');
-      window.location.href = '/login';
+      window.location.href = '/admin/login';
     }
     return Promise.reject(error);
   }
@@ -138,7 +138,7 @@ const moduleRoutes = modules.data.data.flatMap((mod) =>
   mod.client_routes.map((route) => ({
     path: route.path,
     element: <DynamicModule component={route.component} module={mod} />,
-    roles: route.roles,
+    permissions: route.permissions,
   }))
 );
 ```

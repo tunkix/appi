@@ -78,19 +78,19 @@ Array of routes the SPA registers in React Router at boot.
     "path":      "/contacts",           // React Router path
     "component": "ContactsList",        // Component name (resolved in SPA module registry)
     "layout":    "admin",               // "admin" | "public"
-    "roles":     ["contacts.view"]      // Shield permissions required to access this route
+    "permissions": ["contacts.view"]      // Shield permissions required to access this route
   },
   {
     "path":      "/contacts/new",
     "component": "ContactForm",
     "layout":    "admin",
-    "roles":     ["contacts.create"]
+    "permissions": ["contacts.create"]
   },
   {
     "path":      "/contacts/edit/:id",
     "component": "ContactForm",
     "layout":    "admin",
-    "roles":     ["contacts.edit"]
+    "permissions": ["contacts.edit"]
   }
 ]
 ```
@@ -222,7 +222,7 @@ When creating a new module's `module.json`:
 - [ ] Module **directory name** is PascalCase (e.g. `app/Modules/Deals/`)
 - [ ] Database table prefix matches the slug in snake_case (e.g. `deals_deals`)
 - [ ] `api_prefix` matches the route group registered in the module's own `Config/Routes.php`
-- [ ] All `client_routes[].roles` values exist as keys in `permissions`
+- [ ] All `client_routes[].permissions` values exist as keys in `permissions`
 - [ ] All `permissions` keys are **also registered** in `app/Config/AuthGroups.php` under `$permissions` and `$matrix` — see [security.md](security.md)
 - [ ] `db_tables` entries follow the `<slug>_<table>` naming convention (snake_case)
 - [ ] `form_schema.fields` keys match `$allowedFields` in the module's Model

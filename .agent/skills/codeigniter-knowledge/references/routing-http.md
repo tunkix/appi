@@ -74,8 +74,6 @@ final class ContactController extends ApiController
 
     public function create(): ResponseInterface
     {
-        $data = $this->request->getJSON(assoc: true);
-
         if (!$this->validate($this->createRules())) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
@@ -87,8 +85,6 @@ final class ContactController extends ApiController
 
     public function update($id = null): ResponseInterface
     {
-        $data = $this->request->getJSON(assoc: true);
-
         if (!$this->validate($this->updateRules())) {
             return $this->failValidationErrors($this->validator->getErrors());
         }
@@ -262,8 +258,7 @@ final class JwtAuthFilter implements FilterInterface
         }
 
         // Validate token via Shield JWT
-        $jwt = service('jwtManager');
-        if (!$jwt->validate(substr($token, 7))) {
+        if (!auth('jwt')->validate(substr($token, 7))) {
             return service('response')
                 ->setStatusCode(401)
                 ->setJSON(['status' => 'error', 'message' => 'Invalid or expired token.']);
@@ -319,9 +314,6 @@ declare(strict_types=1);
 
 public function create(): ResponseInterface
 {
-    // Always get JSON body for API requests
-    $data = $this->request->getJSON(assoc: true);
-
     $rules = [
         'email'    => 'required|valid_email|is_unique[users.email]',
         'password' => 'required|min_length[8]|max_length[255]',

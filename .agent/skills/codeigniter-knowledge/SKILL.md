@@ -22,7 +22,7 @@ Request → index.php → Bootstrap → Routing
 - **No views, ever.** CI4 `view()` helper is never called. All responses are JSON.
 - Lightweight core with minimal overhead — no template engine, no server-side sessions for API routes.
 - Modular architecture via namespaces (`app/Modules/<Name>/` — **PascalCase**). Each module is fully self-contained with its own API routes + `module.json` manifest.
-- **Zero manual module registration** — CI4 auto-discovers module routes via PSR-4; `GET /api/modules` dynamically globs `module.json` files at runtime.
+- **Zero manual module registration** — CI4 auto-discovers module routes via PSR-4; `GET /api/modules` dynamically globs `module.json` files at runtime. Module PSR-4 namespaces are registered dynamically in `AutoloadConfig::__construct()` by scanning `app/Modules/`.
 - Services container for dependency injection and lookup.
 - Filters acting as middleware for CORS, Shield JWT/PAT authentication, and authorization.
 - Entities implementing CI4 Entity with `$casts` for seamless JSON serialization.
@@ -168,6 +168,8 @@ final class ContactController extends ResourceController
 declare(strict_types=1);
 namespace App\Services;
 
+use App\Models\ContactModel;
+
 final readonly class ContactService
 {
     public function __construct(
@@ -193,6 +195,7 @@ final readonly class ContactService
 declare(strict_types=1);
 namespace App\Models;
 
+use App\Entities\ContactEntity;
 use CodeIgniter\Model;
 
 final class ContactModel extends Model

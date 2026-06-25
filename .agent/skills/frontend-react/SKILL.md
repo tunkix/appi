@@ -156,7 +156,7 @@ export function useApi<T>(url: string): { data: T | null; loading: boolean; erro
     let cancelled = false;
     setLoading(true);
 
-    api.get<T>(url)
+    api.get<Envelope<T>>(url)
       .then((res) => { if (!cancelled) setData(res.data.data); })
       .catch((err) => { if (!cancelled) setError(err.message); })
       .finally(() => { if (!cancelled) setLoading(false); });
@@ -218,6 +218,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
+  base: '/admin/',
   plugins: [react()],
   resolve: {
     alias: {
@@ -233,6 +234,7 @@ Proxy API requests during development to avoid CORS issues:
 
 ```ts
 export default defineConfig({
+  base: '/admin/',
   server: {
     port: 5173,
     proxy: {
@@ -269,7 +271,8 @@ Vite discovers module UI entry points from `app/Modules/*/ui/` directories using
 
 ```ts
 // vite.config.ts
-import { defineConfig, globSync } from 'vite';
+import { defineConfig } from 'vite';
+import { globSync } from 'glob';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
@@ -282,6 +285,7 @@ const moduleEntries = Object.fromEntries(
 );
 
 export default defineConfig({
+  base: '/admin/',
   plugins: [react()],
   resolve: {
     alias: { '@': path.resolve(__dirname, './src') },
@@ -539,7 +543,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
   {
-    path: '/login',
+    path: '/admin/login',
     element: <LoginPage />,
   },
   {
@@ -563,7 +567,7 @@ function PrivateRoute({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   if (state.loading) return <FullPageSpinner />;
-  if (!state.token) return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!state.token) return <Navigate to="/admin/login" state={{ from: location }} replace />;
 
   return <>{children}</>;
 }
