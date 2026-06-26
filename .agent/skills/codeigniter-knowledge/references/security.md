@@ -54,6 +54,8 @@ To configure CodeIgniter Shield for JWT stateless auth, follow these setup steps
 
 ### Auth Controller (Login)
 
+> **Shield v1.3.0 note:** The JWT authenticator's `attempt()` only validates JWT tokens, not email/password. Use the **Session authenticator** for credential validation, then issue a JWT via `JWTManager::generateToken()`.
+
 ```php
 <?php
 declare(strict_types=1);
@@ -61,6 +63,7 @@ namespace App\Controllers\Api;
 
 use App\Controllers\Api\ApiController;
 use CodeIgniter\HTTP\ResponseInterface;
+use CodeIgniter\Shield\Authentication\JWTManager;
 
 final class AuthController extends ApiController
 {
@@ -77,7 +80,7 @@ final class AuthController extends ApiController
             ]);
         }
 
-        $result = auth('jwt')->attempt([
+        $result = auth('session')->attempt([
             'email'    => $this->request->getJSON()->email,
             'password' => $this->request->getJSON()->password,
         ]);
@@ -88,14 +91,30 @@ final class AuthController extends ApiController
             ]);
         }
 
+        /** @var JWTManager $jwtManager */
+        $jwtManager = service('jwtmanager');
+
         return $this->respond([
             'status'     => 'success',
-            'token'      => auth('jwt')->getJWT(),
+            'token'      => $jwtManager->generateToken(auth('session')->getUser()),
             'expires_in' => 3600,
+            'user'       => [
+                'id'    => auth('session')->getUser()->id,
+                'email' => auth('session')->getUser()->email,
+            ],
         ]);
     }
 }
 ```
+
+#### Why Two Authenticators?
+
+| Authenticator | Role | Used For |
+|---|---|---|
+| `session` | Validates email + password credentials | `POST /api/auth/login` |
+| `jwt` | Validates Bearer tokens in request headers | All other protected API routes (`jwtAuth` filter) |
+
+The `session` authenticator is only used at login time. After credential validation, a JWT is generated and returned to the client. Subsequent requests carry the JWT in the `Authorization` header, where the `jwtAuth` filter validates it using the `jwt` authenticator's `check()` method.
 
 ## Disabling Shield's Built-in Auth Views and Session Routes
 
@@ -186,27 +205,34 @@ final class AuthGroups extends ShieldAuthGroups
     public array $groups = [
         'superadmin' => ['title' => 'Super Admin'],
         'admin'      => ['title' => 'Admin'],
+        'developer'  => ['title' => 'Developer'],
         'user'       => ['title' => 'Standard User'],
+        'beta'       => ['title' => 'Beta User'],
     ];
 
     public array $permissions = [
-        'admin.access'    => 'Admin panel access',
-        'users.view'      => 'Can view users',
-        'users.create'    => 'Can create users',
-        'users.edit'      => 'Can edit users',
-        'users.delete'    => 'Can delete users',
+        'admin.access'        => 'Admin panel access',
+        'admin.settings'      => 'Can access main site settings',
+        'users.manage-admins' => 'Can manage other admins',
+        'users.create'        => 'Can create users',
+        'users.edit'          => 'Can edit users',
+        'users.delete'        => 'Can delete users',
+        'beta.access'         => 'Can access beta features',
         // Contacts module (mirrors module.json permissions)
-        'contacts.view'   => 'Can view contacts',
-        'contacts.create' => 'Can create contacts',
-        'contacts.edit'   => 'Can edit contacts',
-        'contacts.delete' => 'Can delete contacts',
-        'contacts.manage' => 'Full contacts access',
+        'contacts.view'       => 'Can view contacts',
+        'contacts.create'     => 'Can create contacts',
+        'contacts.edit'       => 'Can edit contacts',
+        'contacts.delete'     => 'Can delete contacts',
+        'contacts.export'     => 'Can export contacts',
+        'contacts.manage'     => 'Full contacts access',
     ];
 
     public array $matrix = [
-        'superadmin' => ['admin.*', 'users.*', 'contacts.*'],
-        'admin'      => ['admin.access', 'users.view', 'contacts.*'],
-        'user'       => ['contacts.view'],
+        'superadmin' => ['admin.*', 'users.*', 'beta.*', 'contacts.*'],
+        'admin'      => ['admin.access', 'users.create', 'users.edit', 'users.delete', 'beta.access', 'contacts.*'],
+        'developer'  => ['admin.access', 'admin.settings', 'users.create', 'users.edit', 'beta.access'],
+        'user'       => [],
+        'beta'       => ['beta.access'],
     ];
 }
 ```

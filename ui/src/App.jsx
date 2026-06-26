@@ -1,15 +1,24 @@
 import { useState, useEffect } from 'react'
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
-import { AuthProvider } from '@/hooks/useAuth'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { ThemeProvider } from '@/contexts/ThemeContext'
+import { SettingsProvider } from '@/contexts/SettingsContext'
 import ProtectedRoute from '@/components/ProtectedRoute'
 import AdminLayout from '@/layouts/AdminLayout'
 import Login from '@/pages/Login'
+import Dashboard from '@/pages/Dashboard'
+import UsersList from '@/pages/UsersList'
+import UserForm from '@/pages/UserForm'
+import Settings from '@/pages/Settings'
+import NotFound from '@/pages/NotFound'
 import { modules } from 'virtual:modules'
 
 export default function App() {
   return (
     <AuthProvider>
-      <AppContent />
+      <ThemeProvider>
+        <AppContent />
+      </ThemeProvider>
     </AuthProvider>
   )
 }
@@ -38,12 +47,14 @@ function AppContent() {
     .map(m => ({
       path: m.routes?.[0]?.path || `/${m.slug}`,
       label: m.nav.label || m.slug,
+      group: m.nav.group,
+      icon: m.nav.icon,
     }))
 
   const moduleRoutes = moduleDefs.flatMap(m =>
     (m.routes || []).map(route => ({
       path: route.path,
-      element: <ProtectedRoute roles={route.roles}>{route.element}</ProtectedRoute>,
+      element: <ProtectedRoute permissions={route.permissions}>{route.element}</ProtectedRoute>,
     }))
   )
 
@@ -56,12 +67,20 @@ function AppContent() {
       path: '/',
       element: (
         <ProtectedRoute>
-          <AdminLayout navItems={navItems} />
+          <SettingsProvider>
+            <AdminLayout navItems={navItems} />
+          </SettingsProvider>
         </ProtectedRoute>
       ),
       children: [
-        { index: true, element: <Navigate to={navItems[0]?.path || '/login'} replace /> },
+        { index: true, element: <Navigate to="/dashboard" replace /> },
+        { path: 'dashboard', element: <Dashboard /> },
+        { path: 'users', element: <ProtectedRoute permissions={['users.create', 'users.edit', 'users.delete']}><UsersList /></ProtectedRoute> },
+        { path: 'users/new', element: <ProtectedRoute permissions={['users.create']}><UserForm /></ProtectedRoute> },
+        { path: 'users/:id/edit', element: <ProtectedRoute permissions={['users.edit']}><UserForm /></ProtectedRoute> },
+        { path: 'settings', element: <ProtectedRoute permissions={['admin.settings']}><Settings /></ProtectedRoute> },
         ...moduleRoutes,
+        { path: '*', element: <NotFound /> },
       ],
     },
   ])

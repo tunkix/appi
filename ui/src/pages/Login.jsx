@@ -3,14 +3,14 @@ import { Navigate, useNavigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 
 export default function Login() {
-  const { user, login } = useAuth()
+  const { state, login } = useAuth()
   const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
 
-  if (user) {
+  if (state.user) {
     return <Navigate to="/" replace />
   }
 

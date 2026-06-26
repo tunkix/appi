@@ -1,10 +1,10 @@
 import { Navigate } from 'react-router-dom'
 import { useAuth } from '@/hooks/useAuth'
 
-export default function ProtectedRoute({ roles, children }) {
-  const { user, loading } = useAuth()
+export default function ProtectedRoute({ permissions, children }) {
+  const { state } = useAuth()
 
-  if (loading) {
+  if (state.loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-gray-500">Loading...</p>
@@ -12,12 +12,12 @@ export default function ProtectedRoute({ roles, children }) {
     )
   }
 
-  if (!user) {
+  if (!state.user) {
     return <Navigate to="/login" replace />
   }
 
-  if (roles && roles.length > 0) {
-    const hasPermission = roles.some(r => user.permissions?.includes(r))
+  if (permissions && permissions.length > 0) {
+    const hasPermission = permissions.some((p) => state.user.permissions?.includes(p))
     if (!hasPermission) {
       return <Navigate to="/" replace />
     }

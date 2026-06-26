@@ -44,7 +44,7 @@ Content-Type: application/json
   "status": "success",
   "token": "<JWT>",
   "expires_in": 3600,
-  "user": { "id": 1, "email": "user@example.com", "name": "Daniel" }
+  "user": { "id": 1, "email": "user@example.com" }
 }
 ```
 

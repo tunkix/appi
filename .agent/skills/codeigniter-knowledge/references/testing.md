@@ -93,25 +93,25 @@ final class OrderModelTest extends CIUnitTestCase
     {
         $model = new OrderModel();
         $model->insert([
-            'id'          => 'test-order-new',
-            'customer_id' => 'cust-001',
+            'customer_id' => 1,
             'status'      => 'draft',
             'total'       => 7500,
         ]);
 
         $this->seeInDatabase('orders', [
-            'id'     => 'test-order-new',
-            'status' => 'draft',
+            'customer_id' => 1,
+            'status'      => 'draft',
         ]);
     }
 
     public function testSoftDelete(): void
     {
         $model = new OrderModel();
-        $model->delete('test-order-001');
+        // Soft-delete the first seeded order (id=1)
+        $model->delete(1);
 
         $this->dontSeeInDatabase('orders', [
-            'id'         => 'test-order-001',
+            'id'         => 1,
             'deleted_at' => null,
         ]);
     }

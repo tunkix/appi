@@ -1,0 +1,163 @@
+CRITICAL - 2026-06-26 05:08:54 --> CodeIgniter\Shield\Exceptions\SecurityException: Config\Security::$csrfProtection is set to 'cookie'. Same-site attackers may bypass the CSRF protection. Please set it to 'session'.
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 100.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(88): CodeIgniter\Shield\Authentication\Authenticators\Session->checkSecurityConfig()
+ 2 VENDORPATH/codeigniter4/shield/src/Authentication/Authentication.php(65): CodeIgniter\Shield\Authentication\Authenticators\Session->__construct()
+ 3 VENDORPATH/codeigniter4/shield/src/Auth.php(186): CodeIgniter\Shield\Authentication\Authentication->factory()
+ 4 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 5 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:09:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:09:16 --> Error: Class "Firebase\JWT\JWT" not found
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/JWT/Adapters/FirebaseAdapter.php on line 123.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/JWT/JWSEncoder.php(68): CodeIgniter\Shield\Authentication\JWT\Adapters\FirebaseAdapter->encode()
+ 2 VENDORPATH/codeigniter4/shield/src/Authentication/JWTManager.php(78): CodeIgniter\Shield\Authentication\JWT\JWSEncoder->encode()
+ 3 VENDORPATH/codeigniter4/shield/src/Authentication/JWTManager.php(60): CodeIgniter\Shield\Authentication\JWTManager->issue()
+ 4 APPPATH/Services/AuthService.php(25): CodeIgniter\Shield\Authentication\JWTManager->generateToken()
+ 5 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 6 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 7 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 8 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 9 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+11 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+12 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:09:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-06-26 05:09:32 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+ERROR - 2026-06-26 05:09:32 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+ERROR - 2026-06-26 05:09:32 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+DEBUG - 2026-06-26 05:09:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:10:51 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:10:51 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:10:51 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 05:11:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:11:20 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:11:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:11:36 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:11:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:11:47 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:13:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:13:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:13:35 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:13:35 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:14:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:14:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:14:48 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:15:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:15:12 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/tunki/Desktop/ai/appi/public/index.php')
+DEBUG - 2026-06-26 05:15:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:15:47 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:15:47 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:16:01 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:16:01 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:16:12 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:16:12 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 05:16:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 05:16:24 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 05:16:24 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 05:16:24 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 05:16:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.

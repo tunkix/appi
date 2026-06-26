@@ -22,7 +22,7 @@ Request → index.php → Bootstrap → Routing
 - **No views, ever.** CI4 `view()` helper is never called. All responses are JSON.
 - Lightweight core with minimal overhead — no template engine, no server-side sessions for API routes.
 - Modular architecture via namespaces (`app/Modules/<Name>/` — **PascalCase**). Each module is fully self-contained with its own API routes + `module.json` manifest.
-- **Zero manual module registration** — CI4 auto-discovers module routes via PSR-4; `GET /api/modules` dynamically globs `module.json` files at runtime. Module PSR-4 namespaces are registered dynamically in `AutoloadConfig::__construct()` by scanning `app/Modules/`.
+- **Zero manual module registration** — CI4 auto-discovers module routes via PSR-4; `GET /api/modules` dynamically globs `module.json` files at runtime. Note: Module PSR-4 namespaces must be registered in `app/Config/Autoload.php` under the `$psr4` array (either manually or via a dynamic directory-scanning constructor).
 - Services container for dependency injection and lookup.
 - Filters acting as middleware for CORS, Shield JWT/PAT authentication, and authorization.
 - Entities implementing CI4 Entity with `$casts` for seamless JSON serialization.
@@ -132,25 +132,19 @@ namespace App\Controllers\Api;
 use CodeIgniter\RESTful\ResourceController;
 use CodeIgniter\HTTP\ResponseInterface;
 
-final class ContactController extends ResourceController
+final class ContactController extends ApiController
 {
-    protected $format = 'json'; // Always set — returns JSON
-
-    public function __construct(
-        private readonly ContactService $contactService,
-    ) {}
-
     public function index(): ResponseInterface
     {
         return $this->respond([
             'status' => 'success',
-            'data'   => $this->contactService->findAll(),
+            'data'   => service('contactService')->findAll(),
         ]);
     }
 
     public function show(?string $id = null): ResponseInterface
     {
-        $contact = $this->contactService->findById((int) $id);
+        $contact = service('contactService')->findById((int) $id);
 
         if ($contact === null) {
             return $this->failNotFound('Contact not found.');

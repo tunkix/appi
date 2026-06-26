@@ -1,46 +1,28 @@
-const BASE_URL = ''
+import axios from 'axios'
 
-async function request(path, options = {}) {
-  const token = localStorage.getItem('token')
+const api = axios.create({
+  baseURL: '',
+  headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+})
 
-  const headers = {
-    Accept: 'application/json',
-    ...options.headers,
-  }
-
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('appi_token')
   if (token) {
-    headers['Authorization'] = `Bearer ${token}`
+    config.headers.Authorization = `Bearer ${token}`
   }
+  return config
+})
 
-  if (options.body && typeof options.body === 'object' && !(options.body instanceof FormData)) {
-    headers['Content-Type'] = 'application/json'
-    options.body = JSON.stringify(options.body)
-  }
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      localStorage.removeItem('appi_token')
+      window.location.href = '/admin/login'
+    }
+    return Promise.reject(error)
+  },
+)
 
-  const res = await fetch(`${BASE_URL}${path}`, { ...options, headers })
-
-  if (res.status === 401) {
-    localStorage.removeItem('token')
-    window.location.href = '/login'
-    throw new Error('Unauthorized')
-  }
-
-  const data = await res.json()
-
-  if (!res.ok) {
-    const err = new Error(data.message || 'Request failed')
-    err.status = res.status
-    err.data = data
-    throw err
-  }
-
-  return data
-}
-
-export const api = {
-  get: (path) => request(path),
-  post: (path, body) => request(path, { method: 'POST', body }),
-  put: (path, body) => request(path, { method: 'PUT', body }),
-  patch: (path, body) => request(path, { method: 'PATCH', body }),
-  delete: (path) => request(path, { method: 'DELETE' }),
-}
+export { api }
+export default api

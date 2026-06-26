@@ -45,15 +45,11 @@ use CodeIgniter\HTTP\ResponseInterface;
 
 final class ContactController extends ApiController
 {
-    public function __construct(
-        private readonly ContactService $contactService,
-    ) {}
-
     public function index(): ResponseInterface
     {
         return $this->respond([
             'status' => 'success',
-            'data'   => $this->contactService->findAll(),
+            'data'   => service('contactService')->findAll(),
         ]);
     }
 
@@ -63,7 +59,7 @@ final class ContactController extends ApiController
             return $this->failValidationError('ID is required.');
         }
 
-        $contact = $this->contactService->findById((int) $id);
+        $contact = service('contactService')->findById((int) $id);
 
         if ($contact === null) {
             return $this->failNotFound('Contact not found.');
@@ -75,10 +71,12 @@ final class ContactController extends ApiController
     public function create(): ResponseInterface
     {
         if (!$this->validate($this->createRules())) {
-            return $this->failValidationErrors($this->validator->getErrors());
+            return $this->response
+                ->setStatusCode(422)
+                ->setJSON(['status' => 'error', 'errors' => $this->validator->getErrors()]);
         }
 
-        $id = $this->contactService->create($this->validator->getValidated());
+        $id = service('contactService')->create($this->validator->getValidated());
 
         return $this->respondCreated(['status' => 'created', 'id' => $id]);
     }
@@ -86,17 +84,19 @@ final class ContactController extends ApiController
     public function update($id = null): ResponseInterface
     {
         if (!$this->validate($this->updateRules())) {
-            return $this->failValidationErrors($this->validator->getErrors());
+            return $this->response
+                ->setStatusCode(422)
+                ->setJSON(['status' => 'error', 'errors' => $this->validator->getErrors()]);
         }
 
-        $this->contactService->update((int) $id, $this->validator->getValidated());
+        service('contactService')->update((int) $id, $this->validator->getValidated());
 
         return $this->respond(['status' => 'updated']);
     }
 
     public function delete($id = null): ResponseInterface
     {
-        $this->contactService->delete((int) $id);
+        service('contactService')->delete((int) $id);
 
         return $this->respondDeleted(['status' => 'deleted']);
     }
@@ -155,9 +155,8 @@ $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
         $routes->post('auth/logout', 'Api\AuthController::logout');
         $routes->get('auth/me',      'Api\AuthController::me');
 
-        // Core resources
-        $routes->resource('contacts', ['controller' => 'Api\ContactController']);
-        $routes->resource('users',    ['controller' => 'Api\UserController']);
+        // Module resources (contacts, users, etc.) are auto-discovered from
+        // each module's own Config/Routes.php — never hardcode them here.
 
         // Module manifest discovery
         $routes->get('modules', 'Api\ModuleController::index');
@@ -213,7 +212,8 @@ final class CorsFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null): RequestInterface|ResponseInterface|void
     {
         // Handle preflight
-        if ($request->getMethod() === 'options') {
+        // Note: CI4 getMethod() always returns UPPERCASE — compare accordingly
+        if ($request->getMethod() === 'OPTIONS') {
             return service('response')
                 ->setStatusCode(204)
                 ->setHeader('Access-Control-Allow-Origin',  env('ALLOWED_ORIGINS', '*'))

@@ -44,5 +44,14 @@ $routes->group('api', ['filter' => 'cors'], static function ($routes): void {
 
         // i18n
         $routes->get('lang', 'Api\LangController::index');
+
+        // User management (admin only)
+        $routes->group('users', ['filter' => 'group:admin,superadmin'], static function ($routes): void {
+            $routes->get('/',       'Api\UserController::index');
+            $routes->get('(:num)',  'Api\UserController::show/$1');
+            $routes->post('/',      'Api\UserController::create');
+            $routes->put('(:num)',  'Api\UserController::update/$1');
+            $routes->delete('(:num)', 'Api\UserController::delete/$1');
+        });
     });
 });

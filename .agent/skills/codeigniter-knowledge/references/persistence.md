@@ -21,12 +21,11 @@ final class ProductModel extends Model
     protected $table            = 'products';
     protected $primaryKey       = 'id';
     protected $returnType       = ProductEntity::class;
-    protected $useAutoIncrement = false;
+    protected $useAutoIncrement = true;
     protected $useSoftDeletes   = true;
     protected $useTimestamps    = true;
 
     protected $allowedFields = [
-        'id',
         'name',
         'sku',
         'price',
@@ -46,18 +45,7 @@ final class ProductModel extends Model
             'is_unique' => 'This SKU already exists',
         ],
     ];
-
-    protected $beforeInsert = ['generateUuid'];
-    // Timestamps handled by $useTimestamps = true — no manual updateTimestamp hook needed
-
-    /** @param array<string, mixed> $data */
-    protected function generateUuid(array $data): array
-    {
-        if (!isset($data['data']['id'])) {
-            $data['data']['id'] = bin2hex(random_bytes(16));
-        }
-        return $data;
-    }
+    // Timestamps handled by $useTimestamps = true
 }
 ```
 
@@ -98,7 +86,7 @@ final class ProductEntity extends Entity
 {
     /** @var array<string, string> */
     protected $casts = [
-        'id'          => 'string',
+        'id'          => 'integer',
         'price'       => 'integer',
         'is_active'   => 'boolean',
         'category_id' => 'integer',
@@ -216,16 +204,20 @@ final class CreateOrdersTable extends Migration
     {
         $this->forge->addField([
             'id' => [
-                'type'       => 'CHAR',
-                'constraint' => 36,
+                'type'           => 'INTEGER',
+                'constraint'     => 11,
+                'auto_increment' => true,
             ],
             'customer_id' => [
-                'type'       => 'CHAR',
-                'constraint' => 36,
+                'type'       => 'INTEGER',
+                'constraint' => 11,
+                'unsigned'   => true,
             ],
+            // Avoid ENUM — not natively supported by SQLite and painful to migrate.
+            // Store as VARCHAR and validate allowed values in code/Model.
             'status' => [
-                'type'       => 'ENUM',
-                'constraint' => ['draft', 'confirmed', 'shipped', 'cancelled'],
+                'type'       => 'VARCHAR',
+                'constraint' => 20,
                 'default'    => 'draft',
             ],
             'total' => [
@@ -319,15 +311,13 @@ final class OrderSeeder extends Seeder
     {
         $data = [
             [
-                'id'          => 'order-001',
-                'customer_id' => 'cust-001',
+                'customer_id' => 1,
                 'status'      => 'confirmed',
                 'total'       => 15000,
                 'created_at'  => date('Y-m-d H:i:s'),
             ],
             [
-                'id'          => 'order-002',
-                'customer_id' => 'cust-002',
+                'customer_id' => 2,
                 'status'      => 'draft',
                 'total'       => 8500,
                 'created_at'  => date('Y-m-d H:i:s'),

@@ -1,32 +1,78 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Config;
 
+use App\Models\Core\UserModel;
+use App\Modules\Contacts\Models\ContactModel;
+use App\Modules\Contacts\Services\ContactService;
+use App\Services\AuthService;
+use App\Services\LangService;
+use App\Services\ModuleService;
+use App\Services\SettingsService;
+use App\Services\UserService;
 use CodeIgniter\Config\BaseService;
 
-/**
- * Services Configuration file.
- *
- * Services are simply other classes/libraries that the system uses
- * to do its job. This is used by CodeIgniter to allow the core of the
- * framework to be swapped out easily without affecting the usage within
- * the rest of your application.
- *
- * This file holds any application-specific services, or service overrides
- * that you might need. An example has been included with the general
- * method format you should use for your service methods. For more examples,
- * see the core Services file at system/Config/Services.php.
- */
-class Services extends BaseService
+final class Services extends BaseService
 {
-    /*
-     * public static function example($getShared = true)
-     * {
-     *     if ($getShared) {
-     *         return static::getSharedInstance('example');
-     *     }
-     *
-     *     return new \CodeIgniter\Example();
-     * }
-     */
+    public static function authService(bool $getShared = true): AuthService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('authService');
+        }
+
+        return new AuthService();
+    }
+
+    public static function moduleService(bool $getShared = true): ModuleService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('moduleService');
+        }
+
+        return new ModuleService();
+    }
+
+    public static function userService(bool $getShared = true): UserService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('userService');
+        }
+
+        return new UserService(
+            model: new UserModel(),
+        );
+    }
+
+    public static function settingsService(bool $getShared = true): SettingsService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('settingsService');
+        }
+
+        return new SettingsService(
+            settings: service('settings'),
+        );
+    }
+
+    public static function langService(bool $getShared = true): LangService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('langService');
+        }
+
+        return new LangService();
+    }
+
+    public static function contactService(bool $getShared = true): ContactService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('contactService');
+        }
+
+        return new ContactService(
+            model: new ContactModel(),
+        );
+    }
 }

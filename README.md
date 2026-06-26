@@ -60,6 +60,34 @@ php spark serve
 
 The API is available at `http://localhost:8080`.
 
+## Default Login
+
+| Field | Value |
+|---|---|
+| URL | `POST /api/auth/login` |
+| Email | `admin@correo.pe` |
+| Password | `admin123` |
+
+## Frontend Development
+
+The React SPA lives in `ui/`. During development, run the Vite dev server alongside the backend:
+
+```bash
+cd ui
+npm run dev
+```
+
+The Vite dev server starts at `http://localhost:5173` and proxies API requests to the PHP backend. Make sure `http://localhost:5173` is listed in the `ALLOWED_ORIGINS` env var.
+
+To build for production:
+
+```bash
+cd ui
+npm run build
+```
+
+The built assets are served by the PHP backend at `/admin/*`.
+
 ## Testing
 
 ```bash

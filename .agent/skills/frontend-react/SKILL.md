@@ -1,6 +1,6 @@
 ---
 name: frontend-react
-description: Best practices and standards for building the appi React SPA with TypeScript, Vite, Tailwind CSS, and React Router. Covers component architecture, API integration, Context + Hooks state management, project conventions, and code quality.
+description: Best practices and standards for building the appi React SPA with JavaScript (JSX), Vite, Tailwind CSS, and React Router. Covers component architecture, API integration, Context + Hooks state management, project conventions, and code quality.
 compatibility: opencode
 metadata:
   audience: frontend
@@ -11,7 +11,7 @@ metadata:
 
 ## Technology Stack
 
-- **Framework**: React 18+ with TypeScript (strict mode)
+- **Framework**: React 18+ with **JavaScript (JSX)** — the project uses `.jsx`/`.js` files, **not TypeScript**. There is no `tsconfig.json` and no TS compiler installed.
 - **Build Tool**: Vite 5+
 - **Styling**: Tailwind CSS 3+ (utility-first)
 - **Routing**: React Router v6 (lazy-loaded pages)
@@ -25,77 +25,73 @@ The React **Admin** SPA lives in `/ui` at the project root. It communicates with
 ```
 ui/
 ├── index.html
-├── vite.config.ts
-├── tailwind.config.ts
-├── tsconfig.json
+├── vite.config.js
+├── tailwind.config.js
 ├── src/
-│   ├── main.tsx                    # Entry point, providers, router setup
-│   ├── App.tsx                     # Root component with RouterProvider
-│   ├── vite-env.d.ts
-│   ├── types/                      # Shared TypeScript types
-│   │   ├── api.ts                  # API response envelope types
-│   │   ├── auth.ts                 # Auth-related types
-│   │   ├── module.ts               # Module manifest types
-│   │   └── common.ts               # Shared domain types
+│   ├── main.jsx                    # Entry point, providers, router setup
+│   ├── App.jsx                     # Root component with RouterProvider
 │   ├── contexts/                   # React Context providers
-│   │   ├── AuthContext.tsx
-│   │   ├── SettingsContext.tsx
-│   │   ├── ModuleContext.tsx
-│   │   └── ThemeContext.tsx
+│   │   ├── AuthContext.jsx
+│   │   ├── SettingsContext.jsx
+│   │   ├── ModuleContext.jsx
+│   │   └── ThemeContext.jsx
 │   ├── hooks/                      # Custom React hooks
-│   │   ├── useApi.ts
-│   │   ├── useAuth.ts
-│   │   ├── useSettings.ts
-│   │   ├── usePagination.ts
-│   │   └── useDebounce.ts
+│   │   ├── useApi.js
+│   │   ├── useAuth.js
+│   │   ├── useSettings.js
+│   │   ├── usePagination.js
+│   │   └── useDebounce.js
 │   ├── services/                   # API service layer
-│   │   ├── api.ts                  # Axios instance + interceptors
-│   │   ├── authService.ts
-│   │   ├── moduleService.ts
-│   │   └── settingsService.ts
+│   │   ├── api.js                  # Axios instance + interceptors
+│   │   ├── authService.js
+│   │   ├── moduleService.js
+│   │   └── settingsService.js
 │   ├── components/                 # Shared UI components
 │   │   ├── ui/                     # Primitive UI kit (Button, Input, Modal, etc.)
 │   │   ├── layout/                 # Layout components (Sidebar, Header, MainLayout)
 │   │   ├── guards/                 # Route guards (PrivateRoute, RoleGuard)
 │   │   └── common/                 # Shared business components
 │   ├── pages/                      # Route-level page components
-│   │   ├── LoginPage.tsx
-│   │   ├── DashboardPage.tsx
-│   │   └── NotFoundPage.tsx
+│   │   ├── LoginPage.jsx
+│   │   ├── DashboardPage.jsx
+│   │   └── NotFoundPage.jsx
 │   ├── modules/                    # Auto-scanned module UI (loaded from app/Modules/*/ui)
 │   │   └── (generated at build time by Vite glob)
-│   ├── utils/                      # Pure utility functions
-│   │   ├── formatters.ts
-│   │   ├── validators.ts
-│   │   └── permissions.ts
-│   └── styles/
-│       └── globals.css             # Tailwind directives + global styles
+│   └── utils/                      # Pure utility functions
+│       ├── formatters.js
+│       ├── validators.js
+│       └── permissions.js
 ```
 
-## TypeScript Conventions
+## Code Conventions
 
-- **Strict mode** enabled in `tsconfig.json` (`"strict": true`)
-- **No `any` type** — use `unknown` and type guards when the type is uncertain
-- **Explicit return types** on hook functions and component props
-- **No implicit `any`** — `noImplicitAny` is enforced
-- Define shared types in `src/types/` — co-locate module-specific types within the module folder
-- Use `interface` for public API shapes (props, service responses) and `type` for unions/aliases
+- **Functional components only** — no class components
+- **JSDoc comments** for shared functions and hook return types (optional but encouraged)
+- Keep components small and single-responsibility
+- **No `any` workarounds** — handle unknown API shapes with safe defaults and optional chaining
+- Prop validation via `PropTypes` is optional but welcome for shared components
 
-```tsx
-// Good
-interface UserProps {
-  id: number;
-  name: string;
-  email: string;
-}
-
-export function useUser(id: number): { user: User | null; loading: boolean } {
+```jsx
+// Good — clear, documented hook
+/**
+ * @param {string} url
+ * @returns {{ data: any, loading: boolean, error: string|null }}
+ */
+export function useApi(url) {
   // ...
 }
 
-// Bad
-export function useUser(id: any): any {
-  // ...
+// Good — descriptive prop names
+export function ContactsTable({ contacts, currentUser }) {
+  return (
+    <table className="min-w-full">
+      <tbody>
+        {contacts.map((contact) => (
+          <ContactRow key={contact.id} contact={contact} />
+        ))}
+      </tbody>
+    </table>
+  );
 }
 ```
 
@@ -393,19 +389,11 @@ export default { darkMode: 'class' };
 - Use `useState` for component-local state
 - Each domain gets its own context provider
 
-```tsx
-interface AuthState {
-  user: User | null;
-  token: string | null;
-  loading: boolean;
-}
+```jsx
+// Initial state
+const initialState = { user: null, token: null, loading: false };
 
-type AuthAction =
-  | { type: 'LOGIN_SUCCESS'; payload: { user: User; token: string } }
-  | { type: 'LOGOUT' }
-  | { type: 'SET_LOADING'; payload: boolean };
-
-function authReducer(state: AuthState, action: AuthAction): AuthState {
+function authReducer(state, action) {
   switch (action.type) {
     case 'LOGIN_SUCCESS':
       return { ...state, user: action.payload.user, token: action.payload.token, loading: false };
@@ -418,16 +406,13 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
   }
 }
 
-const AuthContext = createContext<{
-  state: AuthState;
-  login: (email: string, password: string) => Promise<void>;
-  logout: () => void;
-} | null>(null);
+// user shape from /api/auth/me: { id, email, groups, permissions }
+const AuthContext = createContext(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const login = async (email: string, password: string) => {
+  const login = async (email, password) => {
     dispatch({ type: 'SET_LOADING', payload: true });
     try {
       const res = await authService.login(email, password);
@@ -448,11 +433,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 ### Custom Hook for Context Access
 
-```tsx
-export function useAuth(): { state: AuthState; login: (email: string, password: string) => Promise<void>; logout: () => void } {
+```jsx
+export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) throw new Error('useAuth must be used within AuthProvider');
   return context;
+}
+
+// Gate a UI action based on a Shield permission string
+// user.permissions comes from GET /api/auth/me response
+export function userCan(user, permission) {
+  return user?.permissions?.includes(permission) ?? false;
 }
 ```
 
@@ -460,8 +451,8 @@ export function useAuth(): { state: AuthState; login: (email: string, password: 
 
 ### Axios Instance
 
-```tsx
-// src/services/api.ts
+```jsx
+// src/services/api.js
 import axios from 'axios';
 
 const api = axios.create({
@@ -492,53 +483,42 @@ api.interceptors.response.use(
 export default api;
 ```
 
-### Typed Service Functions
+### Service Functions
 
-```tsx
-// src/services/authService.ts
+```jsx
+// src/services/authService.js
 import api from './api';
 
-interface LoginResponse {
-  token: string;
-  expires_in: number;
-  user: User;
-}
-
-export async function login(email: string, password: string): Promise<LoginResponse> {
-  const { data } = await api.post<Envelope<LoginResponse>>('/auth/login', { email, password });
-  return data.data;
+/**
+ * @param {string} email
+ * @param {string} password
+ * @returns {Promise<{token: string, expires_in: number, user: object}>}
+ */
+export async function login(email, password) {
+  const { data } = await api.post('/auth/login', { email, password });
+  // Response shape: { status, token, expires_in, user: { id, email } }
+  return data;
 }
 ```
 
-### Standard API Envelope Types
+### Standard API Response Envelope
 
-```tsx
-// src/types/api.ts
-interface Envelope<T> {
-  status: 'success' | 'created' | 'deleted' | 'error';
-  data: T;
-  pagination?: {
-    current_page: number;
-    per_page: number;
-    total_records: number;
-    total_pages: number;
-  };
-}
-
-interface ErrorEnvelope {
-  status: 'error';
-  message: string;
-  errors?: Record<string, string>;
-  code: number;
-}
+```js
+// All CI4 API responses follow this envelope:
+// Success list:   { status: 'success', data: [...], pagination: {...} }
+// Success single: { status: 'success', data: {...} }
+// Created:        { status: 'created', id: 42 }
+// Validation err: { status: 'error', errors: { field: 'message' } }  (HTTP 422)
+// Auth error:     { status: 'error', message: '...' }                (HTTP 401)
+// Forbidden:      { status: 'error', message: '...' }                (HTTP 403)
 ```
 
 ## Routing
 
 ### Setup
 
-```tsx
-// src/main.tsx
+```jsx
+// src/main.jsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -561,8 +541,8 @@ const router = createBrowserRouter([
 
 ### Auth Guard
 
-```tsx
-function PrivateRoute({ children }: { children: React.ReactNode }) {
+```jsx
+function PrivateRoute({ children }) {
   const { state } = useAuth();
   const location = useLocation();
 
@@ -583,11 +563,8 @@ Module routes are registered at boot from the `/api/modules` manifest (see `reac
 
 Wrap each route-level page with an error boundary to prevent the entire SPA from crashing:
 
-```tsx
-class PageErrorBoundary extends React.Component<
-  { children: React.ReactNode; fallback?: React.ReactNode },
-  { hasError: boolean }
-> {
+```jsx
+class PageErrorBoundary extends React.Component {
   state = { hasError: false };
 
   static getDerivedStateFromError() {
@@ -614,10 +591,10 @@ class PageErrorBoundary extends React.Component<
 - **React Testing Library** for component tests
 - **MSW** (Mock Service Worker) for API mocking
 - **vitest-ui** for test debugging
-- Co-locate test files next to the component: `Component.test.tsx`
+- Co-locate test files next to the component: `Component.test.jsx`
 
-```tsx
-// ContactsTable.test.tsx
+```jsx
+// ContactsTable.test.jsx
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import ContactsTable from './ContactsTable';
@@ -638,18 +615,18 @@ describe('ContactsTable', () => {
 
 ### Linting
 
-- ESLint with `@typescript-eslint` rules
+- ESLint with `eslint-plugin-react` and `eslint-plugin-react-hooks`
 - `eslint-plugin-react-hooks` (exhaustive-deps rule is ERROR)
 - `eslint-plugin-tailwindcss` (class order consistency)
 - Prettier for formatting (trailing commas, single quotes, 100-char print width)
 
 ### Conventions
 
-- **Naming**: PascalCase for components and types, camelCase for hooks/functions/variables, UPPER_CASE for constants
-- **File names**: PascalCase for components (`Button.tsx`), camelCase for hooks/services (`useAuth.ts`, `authService.ts`)
+- **Naming**: PascalCase for components, camelCase for hooks/functions/variables, UPPER_CASE for constants
+- **File names**: PascalCase for components (`Button.jsx`), camelCase for hooks/services (`useAuth.js`, `authService.js`)
 - **Exports**: Default export for page components, named exports for everything else
 - **Imports order**: React → third-party → absolute `@/` → relative
-- **No barrel files** (`index.ts` that re-export) for shared components — import directly
+- **No barrel files** (`index.js` that re-export) for shared components — import directly
 
 ### Performance
 

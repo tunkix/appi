@@ -19,7 +19,7 @@ use CodeIgniter\Shield\Authentication\AuthenticatorInterface;
 use CodeIgniter\Shield\Authentication\Authenticators\AccessTokens;
 use CodeIgniter\Shield\Authentication\Authenticators\HmacSha256;
 use CodeIgniter\Shield\Authentication\Authenticators\JWT;
-use CodeIgniter\Shield\Authentication\Authenticators\Session;
+use CodeIgniter\Shield\Authentication\Authenticators\Session as SessionAuth;
 use CodeIgniter\Shield\Authentication\Passwords\CompositionValidator;
 use CodeIgniter\Shield\Authentication\Passwords\DictionaryValidator;
 use CodeIgniter\Shield\Authentication\Passwords\NothingPersonalValidator;
@@ -120,7 +120,8 @@ class Auth extends ShieldAuth
      * @var array<string, class-string<AuthenticatorInterface>>
      */
     public array $authenticators = [
-        'jwt' => JWT::class,
+        'session' => SessionAuth::class,
+        'jwt'     => JWT::class,
     ];
 
     /**

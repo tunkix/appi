@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Controllers\Api\ApiController;
 use CodeIgniter\HTTP\ResponseInterface;
-use CodeIgniter\RESTful\ResourceController;
 
 /**
  * Health-check endpoint for the appi API.
  * GET / → { "app": "appi", "status": "ok", "version": "1.0" }
  */
-final class Home extends ResourceController
+final class Home extends ApiController
 {
-    protected $format = 'json';
-
     public function index(): ResponseInterface
     {
         return $this->respond([

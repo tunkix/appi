@@ -15,19 +15,19 @@
       "path": "/contacts",
       "component": "ContactsList",
       "layout": "admin",
-      "roles": ["contacts.view"]
+      "permissions": ["contacts.view"]
     },
     {
       "path": "/contacts/new",
       "component": "ContactForm",
       "layout": "admin",
-      "roles": ["contacts.create"]
+      "permissions": ["contacts.create"]
     },
     {
       "path": "/contacts/edit/:id",
       "component": "ContactForm",
       "layout": "admin",
-      "roles": ["contacts.edit"]
+      "permissions": ["contacts.edit"]
     }
   ],
 
