@@ -161,3 +161,698 @@ CRITICAL - 2026-06-26 05:16:24 --> ErrorException: Declaration of App\Controller
 in APPPATH/Controllers/Api/SettingsController.php on line 21.
  1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
 DEBUG - 2026-06-26 05:16:36 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 17:21:42 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:21:42 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:21:42 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 17:21:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:21:47 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 17:27:20 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:27:20 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 17:28:38 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:28:39 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:28:39 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:10 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:10 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 17:51:16 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 17:51:18 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:51:18 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:18 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 17:51:45 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 17:51:47 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:51:47 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:47 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:52 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:51:52 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:56:53 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:56:54 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 17:57:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 17:57:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 17:57:03 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:57:03 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:58:41 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 17:58:41 --> ErrorException: Declaration of App\Modules\Contacts\Controllers\ContactController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/contacts]
+in APPPATH/Modules/Contacts/Controllers/ContactController.php on line 20.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:19 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:19 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:21 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:21 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:23 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:23 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:26 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:26 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:28 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:28 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:29 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:14:29 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:15:19 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: POST, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:49:10 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: POST, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 18:49:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 18:49:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 18:49:16 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:49:16 --> ErrorException: Declaration of App\Controllers\Api\SettingsController::update(): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: GET, Route: api/settings]
+in APPPATH/Controllers/Api/SettingsController.php on line 21.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:49:17 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:49:17 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: GET, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+CRITICAL - 2026-06-26 18:49:55 --> ErrorException: Declaration of App\Controllers\Api\UserController::show(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::show($id = null)
+[Method: POST, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 29.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 19:09:12 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 19:09:12 --> ErrorException: Declaration of App\Controllers\Api\UserController::update(?string $id = null): CodeIgniter\HTTP\ResponseInterface must be compatible with CodeIgniter\RESTful\ResourceController::update($id = null)
+[Method: POST, Route: api/users]
+in APPPATH/Controllers/Api/UserController.php on line 65.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()
+DEBUG - 2026-06-26 19:09:44 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-06-26 19:09:44 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+ERROR - 2026-06-26 19:09:44 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+ERROR - 2026-06-26 19:09:44 --> [Shield] FirebaseAdapter::decode(74) UnexpectedValueException: Wrong number of segments
+DEBUG - 2026-06-26 19:10:05 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:14 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:15 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:10:19 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 19:10:19 --> TypeError: App\Validation\UserRules::unique_email(): Argument #2 ($params) must be of type string, null given, called in /home/daniel/Desktop/antigravity/appi/system/Validation/Validation.php on line 344
+[Method: POST, Route: api/users]
+in APPPATH/Validation/UserRules.php on line 11.
+ 1 SYSTEMPATH/Validation/Validation.php(344): App\Validation\UserRules->unique_email()
+ 2 SYSTEMPATH/Validation/Validation.php(210): CodeIgniter\Validation\Validation->processRules()
+ 3 SYSTEMPATH/Controller.php(136): CodeIgniter\Validation\Validation->run()
+ 4 APPPATH/Controllers/Api/UserController.php(47): CodeIgniter\Controller->validate()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\UserController->create()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 19:10:30 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+ERROR - 2026-06-26 19:10:31 --> NOT NULL constraint failed: auth_groups_users.user_id
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1839): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2228): CodeIgniter\Database\BaseBuilder->batchExecute()
+ 6 SYSTEMPATH/Model.php(383): CodeIgniter\Database\BaseBuilder->insertBatch()
+ 7 SYSTEMPATH/BaseModel.php(1007): CodeIgniter\Model->doInsertBatch()
+ 8 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(416): CodeIgniter\BaseModel->insertBatch()
+ 9 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(368): CodeIgniter\Shield\Entities\User->saveGroupsOrPermissions()
+10 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(110): CodeIgniter\Shield\Entities\User->saveGroups()
+11 APPPATH/Services/UserService.php(48): CodeIgniter\Shield\Entities\User->syncGroups()
+12 APPPATH/Controllers/Api/UserController.php(60): App\Services\UserService->create()
+13 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\UserController->create()
+14 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+15 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+16 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+18 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+19 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:10:31 --> CodeIgniter\Database\Exceptions\DatabaseException: NOT NULL constraint failed: auth_groups_users.user_id
+[Method: POST, Route: api/users]
+in SYSTEMPATH/Database/BaseConnection.php on line 863.
+ 1 SYSTEMPATH/Database/BaseBuilder.php(1839): CodeIgniter\Database\BaseConnection->query()
+ 2 SYSTEMPATH/Database/BaseBuilder.php(2228): CodeIgniter\Database\BaseBuilder->batchExecute()
+ 3 SYSTEMPATH/Model.php(383): CodeIgniter\Database\BaseBuilder->insertBatch()
+ 4 SYSTEMPATH/BaseModel.php(1007): CodeIgniter\Model->doInsertBatch()
+ 5 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(416): CodeIgniter\BaseModel->insertBatch()
+ 6 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(368): CodeIgniter\Shield\Entities\User->saveGroupsOrPermissions()
+ 7 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(110): CodeIgniter\Shield\Entities\User->saveGroups()
+ 8 APPPATH/Services/UserService.php(48): CodeIgniter\Shield\Entities\User->syncGroups()
+ 9 APPPATH/Controllers/Api/UserController.php(60): App\Services\UserService->create()
+10 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\UserController->create()
+11 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+12 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+13 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+14 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+15 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+16 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:10:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: NOT NULL constraint failed: auth_groups_users.user_id
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 174.
+ 1 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 2 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 3 SYSTEMPATH/Database/BaseBuilder.php(1839): CodeIgniter\Database\BaseConnection->query()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(2228): CodeIgniter\Database\BaseBuilder->batchExecute()
+ 5 SYSTEMPATH/Model.php(383): CodeIgniter\Database\BaseBuilder->insertBatch()
+ 6 SYSTEMPATH/BaseModel.php(1007): CodeIgniter\Model->doInsertBatch()
+ 7 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(416): CodeIgniter\BaseModel->insertBatch()
+ 8 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(368): CodeIgniter\Shield\Entities\User->saveGroupsOrPermissions()
+ 9 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(110): CodeIgniter\Shield\Entities\User->saveGroups()
+10 APPPATH/Services/UserService.php(48): CodeIgniter\Shield\Entities\User->syncGroups()
+11 APPPATH/Controllers/Api/UserController.php(60): App\Services\UserService->create()
+12 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\UserController->create()
+13 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+14 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+15 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+16 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+17 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+18 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:10:31 --> [Caused by] SQLite3Exception: NOT NULL constraint failed: auth_groups_users.user_id
+in SYSTEMPATH/Database/SQLite3/Connection.php on line 163.
+ 1 SYSTEMPATH/Database/SQLite3/Connection.php(163): SQLite3->exec()
+ 2 SYSTEMPATH/Database/BaseConnection.php(908): CodeIgniter\Database\SQLite3\Connection->execute()
+ 3 SYSTEMPATH/Database/BaseConnection.php(825): CodeIgniter\Database\BaseConnection->simpleQuery()
+ 4 SYSTEMPATH/Database/BaseBuilder.php(1839): CodeIgniter\Database\BaseConnection->query()
+ 5 SYSTEMPATH/Database/BaseBuilder.php(2228): CodeIgniter\Database\BaseBuilder->batchExecute()
+ 6 SYSTEMPATH/Model.php(383): CodeIgniter\Database\BaseBuilder->insertBatch()
+ 7 SYSTEMPATH/BaseModel.php(1007): CodeIgniter\Model->doInsertBatch()
+ 8 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(416): CodeIgniter\BaseModel->insertBatch()
+ 9 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(368): CodeIgniter\Shield\Entities\User->saveGroupsOrPermissions()
+10 VENDORPATH/codeigniter4/shield/src/Authorization/Traits/Authorizable.php(110): CodeIgniter\Shield\Entities\User->saveGroups()
+11 APPPATH/Services/UserService.php(48): CodeIgniter\Shield\Entities\User->syncGroups()
+12 APPPATH/Controllers/Api/UserController.php(60): App\Services\UserService->create()
+13 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\UserController->create()
+14 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+15 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+16 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+17 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+18 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+19 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 19:11:03 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:12:02 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:12:04 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 19:12:04 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:12:04 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:15:02 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:15:02 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:26:51 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:26:51 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 19:27:27 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:27:49 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:28:01 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 19:28:01 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:28:01 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:34:58 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:34:59 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:35:01 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:35:01 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:35:03 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:35:03 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:07 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:07 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:10 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:10 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:21 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:21 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 19:39:23 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+DEBUG - 2026-06-26 19:39:25 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 19:39:25 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 19:39:25 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 20:46:41 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 20:46:41 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 20:46:59 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 20:46:59 --> CodeIgniter\Shield\Exceptions\LogicException: The user has User Info in Session, so already logged in or in pending login state. If a logged in user logs in again with other account, the session data of the previous user will be used as the new user. Fix your code to prevent users from logging in without logging out or delete the session data. user_id: 3
+[Method: POST, Route: api/auth/login]
+in VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php on line 648.
+ 1 VENDORPATH/codeigniter4/shield/src/Authentication/Authenticators/Session.php(174): CodeIgniter\Shield\Authentication\Authenticators\Session->startLogin()
+ 2 VENDORPATH/codeigniter4/shield/src/Auth.php(189): CodeIgniter\Shield\Authentication\Authenticators\Session->attempt()
+ 3 APPPATH/Services/AuthService.php(13): CodeIgniter\Shield\Auth->__call()
+ 4 APPPATH/Controllers/Api/AuthController.php(25): App\Services\AuthService->login()
+ 5 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\AuthController->login()
+ 6 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 7 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 8 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+10 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+11 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+DEBUG - 2026-06-26 20:47:29 --> Session: Class initialized using 'CodeIgniter\Session\Handlers\FileHandler' driver.
+CRITICAL - 2026-06-26 20:47:29 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 20:47:29 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:01:31 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:01:31 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:01:40 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:01:40 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:07:26 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:07:26 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:12:55 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:12:55 --> Error: Call to undefined method CodeIgniter\Settings\Settings::all()
+[Method: GET, Route: api/settings]
+in APPPATH/Services/SettingsService.php on line 17.
+ 1 APPPATH/Controllers/Api/SettingsController.php(13): App\Services\SettingsService->findAll()
+ 2 SYSTEMPATH/CodeIgniter.php(974): App\Controllers\Api\SettingsController->index()
+ 3 SYSTEMPATH/CodeIgniter.php(520): CodeIgniter\CodeIgniter->runController()
+ 4 SYSTEMPATH/CodeIgniter.php(363): CodeIgniter\CodeIgniter->handleRequest()
+ 5 SYSTEMPATH/Boot.php(417): CodeIgniter\CodeIgniter->run()
+ 6 SYSTEMPATH/Boot.php(68): CodeIgniter\Boot::runCodeIgniter()
+ 7 FCPATH/index.php(17): CodeIgniter\Boot::bootWeb()
+ 8 SYSTEMPATH/rewrite.php(44): require_once('/home/daniel/Desktop/antigravity/appi/public/index.php')
+CRITICAL - 2026-06-26 21:17:10 --> ErrorException: Constant expression contains invalid operations
+[Method: GET, Route: /]
+in APPPATH/Config/Cors.php on line 27.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->shutdownHandler()

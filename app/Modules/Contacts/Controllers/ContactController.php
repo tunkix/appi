@@ -17,7 +17,7 @@ final class ContactController extends ApiController
         ]);
     }
 
-    public function show(?string $id = null): ResponseInterface
+    public function show($id = null): ResponseInterface
     {
         $contact = service('contactService')->findById((int) $id);
 
@@ -41,7 +41,7 @@ final class ContactController extends ApiController
         return $this->respondCreated(['status' => 'created', 'id' => $id]);
     }
 
-    public function update(?string $id = null): ResponseInterface
+    public function update($id = null): ResponseInterface
     {
         if (! $this->validate($this->updateRules())) {
             return $this->response
@@ -54,7 +54,7 @@ final class ContactController extends ApiController
         return $this->respond(['status' => 'updated']);
     }
 
-    public function delete(?string $id = null): ResponseInterface
+    public function delete($id = null): ResponseInterface
     {
         service('contactService')->delete((int) $id);
 

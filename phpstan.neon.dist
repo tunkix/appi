@@ -1,0 +1,18 @@
+includes:
+    - phpstan-baseline.neon
+    - vendor/codeigniter/phpstan-codeigniter/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
+parameters:
+    level: 5
+    paths:
+        - app
+    excludePaths:
+        - app/Views/errors/*
+    tmpDir: build/phpstan-cache
+    bootstrapFiles:
+        - system/Test/bootstrap.php
+    codeigniter:
+        additionalServices:
+            - CodeIgniter\Settings\Config\Services
+            - CodeIgniter\Shield\Config\Services

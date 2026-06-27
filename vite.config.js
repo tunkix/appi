@@ -13,6 +13,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'ui/src'),
     },
   },
+  publicDir: false,
   build: {
     outDir: 'public',
     emptyOutDir: false,

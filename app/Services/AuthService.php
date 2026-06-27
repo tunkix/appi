@@ -52,6 +52,7 @@ final readonly class AuthService
 
     public function logout(): void
     {
+        auth('jwt')->logout();
         auth('session')->logout();
     }
 
@@ -63,8 +64,33 @@ final readonly class AuthService
             return null;
         }
 
-        $user->permissions = $user->getPermissions();
-        $user->groups      = $user->getGroups();
+        $groups = $user->getGroups();
+        $matrix = setting('AuthGroups.matrix');
+        $allPermissions = setting('AuthGroups.permissions');
+
+        $resolved = [];
+        foreach ($groups as $group) {
+            if (! isset($matrix[$group])) {
+                continue;
+            }
+            foreach ($matrix[$group] as $perm) {
+                if (str_ends_with($perm, '.*')) {
+                    $prefix = substr($perm, 0, -2);
+                    foreach (array_keys($allPermissions) as $available) {
+                        if (str_starts_with($available, $prefix . '.')) {
+                            $resolved[] = $available;
+                        }
+                    }
+                } else {
+                    $resolved[] = $perm;
+                }
+            }
+        }
+
+        $merged = array_values(array_unique(array_merge($resolved, $user->getPermissions())));
+        $user->setPermissionsCache($merged);
+        $user->permissions = $merged;
+        $user->groups      = $groups;
 
         return $user;
     }

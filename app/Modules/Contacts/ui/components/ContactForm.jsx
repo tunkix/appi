@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { api } from '@/utils/api'
+import { getContact, createContact, updateContact } from '@/services/contactsService'
 
 export default function ContactForm() {
   const { id } = useParams()
@@ -20,7 +20,7 @@ export default function ContactForm() {
 
   useEffect(() => {
     if (isEdit) {
-      api.get(`/api/contacts/${id}`)
+      getContact(id)
         .then(res => {
           const c = res.data
           setForm({
@@ -46,9 +46,9 @@ export default function ContactForm() {
     setSubmitting(true)
     try {
       if (isEdit) {
-        await api.put(`/api/contacts/${id}`, form)
+        await updateContact(id, form)
       } else {
-        await api.post('/api/contacts', form)
+        await createContact(form)
       }
       navigate('/contacts')
     } catch (err) {

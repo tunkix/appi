@@ -26,7 +26,7 @@ final class UserController extends ApiController
         ]);
     }
 
-    public function show(?string $id = null): ResponseInterface
+    public function show($id = null): ResponseInterface
     {
         $user = service('userService')->findById((int) $id);
 
@@ -43,9 +43,10 @@ final class UserController extends ApiController
     public function create(): ResponseInterface
     {
         if (! $this->validate([
-            'email'    => 'required|valid_email|is_unique[users.email]',
+            'email'    => 'required|valid_email|unique_email',
             'password' => 'required|min_length[8]',
             'username' => 'required|min_length[3]|max_length[30]',
+            'groups'   => 'permit_empty',
         ])) {
             return $this->response
                 ->setStatusCode(422)
@@ -60,11 +61,12 @@ final class UserController extends ApiController
         return $this->respondCreated(['status' => 'created', 'id' => $id]);
     }
 
-    public function update(?string $id = null): ResponseInterface
+    public function update($id = null): ResponseInterface
     {
         if (! $this->validate([
-            'email'    => 'permit_empty|valid_email|is_unique[users.email,id,{id}]',
+            'email'    => "permit_empty|valid_email|unique_email[{$id}]",
             'username' => 'permit_empty|min_length[3]|max_length[30]',
+            'groups'   => 'permit_empty',
         ])) {
             return $this->response
                 ->setStatusCode(422)
@@ -74,12 +76,14 @@ final class UserController extends ApiController
                 ]);
         }
 
-        service('userService')->update((int) $id, $this->validator->getValidated());
+        if (! service('userService')->update((int) $id, $this->validator->getValidated())) {
+            return $this->failNotFound('User not found.');
+        }
 
         return $this->respond(['status' => 'updated']);
     }
 
-    public function delete(?string $id = null): ResponseInterface
+    public function delete($id = null): ResponseInterface
     {
         service('userService')->delete((int) $id);
 

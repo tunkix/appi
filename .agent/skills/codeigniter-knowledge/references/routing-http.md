@@ -53,7 +53,7 @@ final class ContactController extends ApiController
         ]);
     }
 
-    public function show(?string $id = null): ResponseInterface
+    public function show($id = null): ResponseInterface
     {
         if ($id === null) {
             return $this->failValidationError('ID is required.');

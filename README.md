@@ -60,20 +60,21 @@ php spark serve
 
 The API is available at `http://localhost:8080`.
 
-## Default Login
+## First-Time Setup
 
-| Field | Value |
-|---|---|
-| URL | `POST /api/auth/login` |
-| Email | `admin@correo.pe` |
-| Password | `admin123` |
+After running migrations, create an admin user:
+
+```bash
+php spark shield:user create -n admin -e admin@example.com -g superadmin
+```
+
+You will be prompted to set a password. Then log in at `POST /api/auth/login` with the email and password you chose.
 
 ## Frontend Development
 
-The React SPA lives in `ui/`. During development, run the Vite dev server alongside the backend:
+The React SPA source lives in `ui/src/`. During development, run the Vite dev server from the project root alongside the backend:
 
 ```bash
-cd ui
 npm run dev
 ```
 
@@ -82,7 +83,6 @@ The Vite dev server starts at `http://localhost:5173` and proxies API requests t
 To build for production:
 
 ```bash
-cd ui
 npm run build
 ```
 

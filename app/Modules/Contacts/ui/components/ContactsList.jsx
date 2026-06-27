@@ -1,18 +1,29 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
-import { api } from '@/utils/api'
+import { getContacts } from '@/services/contactsService'
+import { useDebounce } from '@/hooks/useDebounce'
 
 export default function ContactsList() {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
+  const debouncedSearch = useDebounce(search)
+
+  const fetchContacts = useCallback(async () => {
+    setLoading(true)
+    try {
+      const res = await getContacts({ search: debouncedSearch || undefined })
+      setContacts(res.data || [])
+    } catch {
+      setContacts([])
+    } finally {
+      setLoading(false)
+    }
+  }, [debouncedSearch])
 
   useEffect(() => {
-    api.get(`/api/contacts?search=${encodeURIComponent(search)}`)
-      .then(res => setContacts(res.data || []))
-      .catch(() => {})
-      .finally(() => setLoading(false))
-  }, [search])
+    fetchContacts()
+  }, [fetchContacts])
 
   if (loading) return <p className="text-gray-500">Loading contacts...</p>
 

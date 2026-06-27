@@ -18,20 +18,27 @@ final class SettingsController extends ApiController
         ]);
     }
 
-    public function update(): ResponseInterface
+    public function update($id = null): ResponseInterface
     {
-        $data = $this->request->getJSON(assoc: true);
-
-        if ($data === null) {
+        if (! $this->validate([
+            'company_name'      => 'permit_empty|max_length[255]',
+            'app_logo_url'      => 'permit_empty|valid_url_strict|max_length[500]',
+            'default_locale'    => 'permit_empty|in_list[en,es,pt,fr,de]',
+            'date_format'       => 'permit_empty|max_length[20]',
+            'time_format'       => 'permit_empty|max_length[20]',
+            'currency'          => 'permit_empty|max_length[3]',
+            'thousand_separator'=> 'permit_empty|max_length[1]',
+            'decimal_separator' => 'permit_empty|max_length[1]',
+        ])) {
             return $this->response
                 ->setStatusCode(422)
                 ->setJSON([
                     'status' => 'error',
-                    'message' => 'Invalid JSON body.',
+                    'errors' => $this->validator->getErrors(),
                 ]);
         }
 
-        service('settingsService')->update($data);
+        service('settingsService')->update($this->validator->getValidated());
 
         return $this->respond(['status' => 'updated']);
     }

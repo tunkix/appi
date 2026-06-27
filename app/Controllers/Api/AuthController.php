@@ -56,6 +56,12 @@ final class AuthController extends ApiController
 
         $result = service('authService')->refresh($this->request->getJSON()->token);
 
+        if ($result === []) {
+            return $this->response
+                ->setStatusCode(401)
+                ->setJSON(['status' => 'error', 'message' => 'Invalid or expired token.']);
+        }
+
         return $this->respond([
             'status'     => 'success',
             'token'      => $result['token'],

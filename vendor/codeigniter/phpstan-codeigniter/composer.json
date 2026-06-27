@@ -1,0 +1,103 @@
+{
+    "name": "codeigniter/phpstan-codeigniter",
+    "description": "CodeIgniter extensions and rules for PHPStan",
+    "license": "MIT",
+    "type": "phpstan-extension",
+    "keywords": [
+        "codeigniter",
+        "codeigniter4",
+        "dev",
+        "phpstan",
+        "static analysis"
+    ],
+    "authors": [
+        {
+            "name": "John Paul E. Balandan, CPA",
+            "email": "paulbalandan@gmail.com"
+        }
+    ],
+    "support": {
+        "forum": "http://forum.codeigniter.com/",
+        "source": "https://github.com/CodeIgniter/phpstan-codeigniter",
+        "slack": "https://codeigniterchat.slack.com"
+    },
+    "require": {
+        "php": "^8.2",
+        "ext-sqlite3": "*",
+        "phpstan/phpstan": "^2.2"
+    },
+    "require-dev": {
+        "codeigniter/coding-standard": "^1.8",
+        "codeigniter4/framework": "^4.7",
+        "codeigniter4/shield": "^1.2",
+        "friendsofphp/php-cs-fixer": "^3.92",
+        "kubawerlos/php-cs-fixer-custom-fixers": "^3.35",
+        "nexusphp/cs-config": "^3.27",
+        "nexusphp/tachycardia": "^2.4",
+        "phpstan/extension-installer": "^1.4",
+        "phpstan/phpstan-deprecation-rules": "^2.0",
+        "phpstan/phpstan-phpunit": "^2.0",
+        "phpstan/phpstan-strict-rules": "^2.0",
+        "phpunit/phpunit": "^11.5 || ^12.5"
+    },
+    "conflict": {
+        "codeigniter/framework": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "CodeIgniter\\PHPStan\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CodeIgniter\\PHPStan\\Tests\\": "tests/"
+        },
+        "exclude-from-classmap": [
+            "tests/data/**",
+            "tests/Fixtures/Database/Migrations/**"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "phpstan": {
+            "includes": [
+                "extension.neon"
+            ]
+        }
+    },
+    "scripts": {
+        "post-update-cmd": [
+            "CodeIgniter\\PHPStan\\ComposerScripts::postUpdate"
+        ],
+        "cs:check": "php-cs-fixer check --verbose --ansi --diff",
+        "cs:fix": "php-cs-fixer fix --verbose --ansi --diff",
+        "phpstan:baseline": "phpstan analyse --verbose --ansi --generate-baseline=phpstan-baseline.php",
+        "phpstan:check": "phpstan analyse --verbose --ansi",
+        "test:all": [
+            "@cs:check",
+            "@phpstan:check",
+            "@test:stan",
+            "@test:unit"
+        ],
+        "test:stan": "phpunit --colors=always --group=static-analysis",
+        "test:unit": "phpunit --colors=always --group=unit"
+    },
+    "scripts-descriptions": {
+        "cs:check": "Checks for coding style violations",
+        "cs:fix": "Fixes coding style violations",
+        "phpstan:baseline": "Runs PHPStan and dumps resulting errors to baseline",
+        "phpstan:check": "Runs PHPStan with identifiers support",
+        "test:all": "Runs all tests",
+        "test:stan": "Runs the Static Analysis Tests",
+        "test:unit": "Runs the Unit Tests"
+    }
+}

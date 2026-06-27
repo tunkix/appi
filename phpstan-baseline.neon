@@ -1,0 +1,97 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^PHPDoc type array\<string, array\<int, array\<string, string\>\>\> of property Config\\AuthJWT\:\:\$keys is not covariant with PHPDoc type array\<string, list\<array\<string, string\>\>\> of overridden property CodeIgniter\\Shield\\Config\\AuthJWT\:\:\$keys\.$#'
+			identifier: property.phpDocType
+			count: 1
+			path: app/Config/AuthJWT.php
+
+		-
+			message: '#^Expression on left side of \?\? is not nullable\.$#'
+			identifier: nullCoalesce.expr
+			count: 1
+			path: app/Controllers/Api/LangController.php
+
+		-
+			message: '#^Method App\\Filters\\CorsFilter\:\:after\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Filters/CorsFilter.php
+
+		-
+			message: '#^Method App\\Filters\\CorsFilter\:\:before\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Filters/CorsFilter.php
+
+		-
+			message: '#^Method App\\Filters\\CorsFilter\:\:before\(\) should return CodeIgniter\\HTTP\\RequestInterface\|CodeIgniter\\HTTP\\ResponseInterface\|string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Filters/CorsFilter.php
+
+		-
+			message: '#^Method App\\Filters\\JwtAuthFilter\:\:after\(\) should return CodeIgniter\\HTTP\\ResponseInterface\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Filters/JwtAuthFilter.php
+
+		-
+			message: '#^Method App\\Filters\\JwtAuthFilter\:\:before\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Filters/JwtAuthFilter.php
+
+		-
+			message: '#^Method App\\Filters\\JwtAuthFilter\:\:before\(\) should return CodeIgniter\\HTTP\\RequestInterface\|CodeIgniter\\HTTP\\ResponseInterface\|string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Filters/JwtAuthFilter.php
+
+		-
+			message: '#^Method App\\Filters\\RateLimitFilter\:\:after\(\) should return CodeIgniter\\HTTP\\ResponseInterface\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Filters/RateLimitFilter.php
+
+		-
+			message: '#^Method App\\Filters\\RateLimitFilter\:\:before\(\) never returns string so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Filters/RateLimitFilter.php
+
+		-
+			message: '#^Method App\\Filters\\RateLimitFilter\:\:before\(\) should return CodeIgniter\\HTTP\\RequestInterface\|CodeIgniter\\HTTP\\ResponseInterface\|string\|null but return statement is missing\.$#'
+			identifier: return.missing
+			count: 1
+			path: app/Filters/RateLimitFilter.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\Database\\ConnectionInterface\:\:disableForeignKeyChecks\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Modules/Contacts/Database/Migrations/2026-06-24-000000_CreateContactsTables.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\Database\\ConnectionInterface\:\:enableForeignKeyChecks\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Modules/Contacts/Database/Migrations/2026-06-24-000000_CreateContactsTables.php
+
+		-
+			message: '#^Call to an undefined method CodeIgniter\\Settings\\Settings\:\:all\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: app/Services/SettingsService.php
+
+		-
+			message: '#^Method App\\Services\\UserService\:\:pager\(\) never returns null so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: app/Services/UserService.php
+
+		-
+			message: '#^Parameter \#1 \$array \(list\<CodeIgniter\\Shield\\Entities\\User\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: app/Services/UserService.php

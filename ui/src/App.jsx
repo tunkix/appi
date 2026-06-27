@@ -11,6 +11,7 @@ import UsersList from '@/pages/UsersList'
 import UserForm from '@/pages/UserForm'
 import Settings from '@/pages/Settings'
 import NotFound from '@/pages/NotFound'
+import ErrorBoundary from '@/components/ui/ErrorBoundary'
 import { modules } from 'virtual:modules'
 
 export default function App() {
@@ -65,6 +66,7 @@ function AppContent() {
     },
     {
       path: '/',
+      errorElement: <ErrorBoundary />,
       element: (
         <ProtectedRoute>
           <SettingsProvider>

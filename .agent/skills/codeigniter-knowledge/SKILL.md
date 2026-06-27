@@ -142,7 +142,7 @@ final class ContactController extends ApiController
         ]);
     }
 
-    public function show(?string $id = null): ResponseInterface
+    public function show($id = null): ResponseInterface
     {
         $contact = service('contactService')->findById((int) $id);
 
